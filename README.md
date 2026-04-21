@@ -4,7 +4,7 @@
 
 Built by a Solutions Engineer, for Solutions Engineers. Uses Claude AI (Anthropic) to extract structured intelligence from raw call transcripts — no templates, no manual copy-paste, no forgotten action items.
 
-🔗 **[Live Demo →](https://dkrish.github.io/se-meeting-intelligence)**
+🔗 **[Live Demo →](https://divya-krish.github.io/se-meeting-intelligence)**
 
 ---
 
