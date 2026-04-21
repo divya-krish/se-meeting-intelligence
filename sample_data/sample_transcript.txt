@@ -1,0 +1,46 @@
+[TRANSCRIPT - Acme Financial Services - Discovery Call - April 14, 2026]
+[Duration: 47 minutes]
+
+SE (Divya): Thanks everyone for joining. I'm Divya from Cloudflare's Solutions Engineering team, and I have Mark from our account team as well. Could everyone on your side introduce themselves?
+
+Customer (Sarah Chen, CISO): Sure — I'm Sarah Chen, CISO at Acme Financial. With me is Tom Rodriguez, our Head of Infrastructure, and Lisa Park, VP of Application Security.
+
+SE: Perfect. Tom, you mentioned on our intro call that you had some significant incidents last quarter — can you walk me through what happened?
+
+Tom (Head of Infrastructure): We had three major DDoS incidents in Q4. Our current Zscaler setup is struggling with the volume and the attack sophistication has gone up. We're also running Palo Alto for our network firewall, and managing three separate vendors is becoming operationally painful. We have about 15,000 employees and our VPN infrastructure is creaking under the load since we went hybrid.
+
+Sarah (CISO): The bigger concern for me is our API exposure. We launched a mobile banking platform eight months ago and now have 47 public-facing APIs. Two months ago we had a credential stuffing attack that got through — 50,000 accounts were compromised. We reported it to the board and they want a solution in place before our September presentation. We need something better and we need it by Q3.
+
+SE: That's really helpful context. The timeline — is that driven purely by the board presentation or is there a contract renewal coming up?
+
+Tom: Both. Our Zscaler contract is up for renewal in August. We've been unhappy for about 18 months — the support has been poor and the performance during peak trading hours is unacceptable.
+
+SE: And budget — are you working within an existing approved security budget or does this require a new business case?
+
+Sarah: We have budget. The board already approved $2.8M for security infrastructure as a direct response to the incident. We need to make the right decision, not the fast one.
+
+Lisa (VP Application Security): Can I jump in? I'm specifically interested in how Cloudflare handles client-side JavaScript security. We had a Magecart-style attack attempt last month — someone tried to inject a skimmer into our payment page. We caught it manually but we got lucky. And separately, we're three months away from launching an AI-powered financial advisor and I need to make sure the LLM is protected from prompt injection and jailbreaks before we go live.
+
+SE: Both of those are exactly what we built for. Page Integrity Manager handles client-side protection — it monitors and controls every JavaScript resource on your payment pages in real time. And AI Gateway is our layer for LLM security — it sits between your application and the model and handles prompt injection detection, rate limiting, and content filtering. The fact that you have both requirements is actually a strong case for Cloudflare's unified platform versus point solutions.
+
+Tom: What does a migration from Zscaler look like in practice? That's the part I'm most nervous about.
+
+SE: It's more manageable than most teams expect. We'd start with a parallel deployment — your users continue on Zscaler while we onboard a pilot group to Cloudflare Access. Typically 30 days for the pilot, 60 days to full cutover for an org your size. I can have our Zero Trust architect prepare a specific migration analysis for your architecture.
+
+Mark (AE): I'll send over our POC framework document by end of this week so you can see exactly what the 30-day validation looks like.
+
+Sarah: What do you need from us to get started?
+
+SE: A technical deep-dive session with Tom's infrastructure team — I'd want to understand your current network topology and identity stack. And if Lisa can share more about the AI architecture, we can scope the AI Gateway deployment in parallel. Can we get something on the calendar in the next two weeks?
+
+Tom: Yes — let's do it. Our ideal decision date is June 1st so we have time to implement before the August renewal.
+
+SE: Perfect. We'll work backwards from June 1st. Mark, can you coordinate the calendar invite?
+
+Mark: On it — I'll have something out today.
+
+Sarah: One more question — what does Cloudflare look like versus Zscaler on pricing at our scale?
+
+SE: I'll have our team put together a TCO comparison — apples to apples on what you're paying Zscaler today versus what a Cloudflare deployment covering the same scope would look like. Typically at 15,000 seats we're competitive, and when you factor in consolidating the Palo Alto workload, the combined TCO story is usually compelling.
+
+[Call ended]

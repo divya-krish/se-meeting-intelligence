@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SE Meeting Intelligence | Cloudflare SE Productivity Tool</title>
+  <style>
+    :root {
+      --cf-orange: #F6821F;
+      --cf-orange-light: #FFA04D;
+      --cf-dark: #1A1A2E;
+      --cf-darker: #0F0F1A;
+      --cf-card: #16213E;
+      --cf-card-hover: #1A2850;
+      --cf-border: #2A3A5C;
+      --cf-text: #E8EAF0;
+      --cf-muted: #8892A4;
+      --cf-green: #27AE60;
+      --cf-red: #E74C3C;
+      --cf-yellow: #F39C12;
+      --cf-blue: #3498DB;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--cf-darker);
+      color: var(--cf-text);
+      min-height: 100vh;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* ─── HEADER ─────────────────────────────────────── */
+    header {
+      background: var(--cf-dark);
+      border-bottom: 1px solid var(--cf-border);
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--cf-orange);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .logo-sub {
+      font-size: 12px;
+      color: var(--cf-muted);
+      font-weight: 400;
+    }
+
+    .header-badge {
+      background: rgba(246, 130, 31, 0.15);
+      border: 1px solid rgba(246, 130, 31, 0.3);
+      color: var(--cf-orange);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    /* ─── HERO ─────────────────────────────────────── */
+    .hero {
+      background: linear-gradient(135deg, var(--cf-dark) 0%, #0D1B3E 100%);
+      padding: 48px 32px 40px;
+      border-bottom: 1px solid var(--cf-border);
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 36px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #FFFFFF 0%, var(--cf-orange) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      color: var(--cf-muted);
+      font-size: 16px;
+      max-width: 600px;
+      margin: 0 auto 28px;
+    }
+
+    /* ─── IMPACT METRICS BAR ────────────────────────── */
+    .impact-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--cf-border);
+      border: 1px solid var(--cf-border);
+      border-radius: 12px;
+      overflow: hidden;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .impact-card {
+      background: var(--cf-card);
+      padding: 20px 24px;
+      text-align: center;
+    }
+
+    .impact-number {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--cf-orange);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .impact-label {
+      font-size: 12px;
+      color: var(--cf-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .impact-sub {
+      font-size: 11px;
+      color: var(--cf-muted);
+      margin-top: 2px;
+    }
+
+    /* ─── MAIN LAYOUT ───────────────────────────────── */
+    .main {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 32px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .panel {
+      background: var(--cf-card);
+      border: 1px solid var(--cf-border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .panel-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--cf-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255,255,255,0.02);
+    }
+
+    .panel-title {
+      font-weight: 700;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .panel-badge {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-weight: 600;
+    }
+
+    .badge-raw { background: rgba(52, 152, 219, 0.15); color: var(--cf-blue); border: 1px solid rgba(52,152,219,0.3); }
+    .badge-ai { background: rgba(246, 130, 31, 0.15); color: var(--cf-orange); border: 1px solid rgba(246,130,31,0.3); }
+    .badge-live { background: rgba(39, 174, 96, 0.15); color: var(--cf-green); border: 1px solid rgba(39,174,96,0.3); }
+
+    /* ─── TRANSCRIPT PANEL ─────────────────────────── */
+    .transcript-text {
+      padding: 20px;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 12px;
+      line-height: 1.7;
+      color: #B8C4D4;
+      max-height: 600px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+    }
+
+    .transcript-meta {
+      padding: 12px 20px;
+      border-top: 1px solid var(--cf-border);
+      display: flex;
+      gap: 16px;
+      font-size: 11px;
+      color: var(--cf-muted);
+    }
+
+    /* ─── OUTPUT PANEL ──────────────────────────────── */
+    .output-tabs {
+      display: flex;
+      border-bottom: 1px solid var(--cf-border);
+      overflow-x: auto;
+    }
+
+    .tab {
+      padding: 10px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      color: var(--cf-muted);
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+    }
+
+    .tab:hover { color: var(--cf-text); }
+    .tab.active { color: var(--cf-orange); border-bottom-color: var(--cf-orange); }
+
+    .tab-content { display: none; padding: 20px; }
+    .tab-content.active { display: block; }
+
+    /* ─── SUMMARY TAB ──────────────────────────────── */
+    .summary-text {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--cf-text);
+      padding: 16px;
+      background: rgba(246,130,31,0.05);
+      border: 1px solid rgba(246,130,31,0.15);
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .info-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--cf-border);
+      border-radius: 8px;
+      padding: 14px;
+    }
+
+    .info-card-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--cf-muted);
+      margin-bottom: 6px;
+    }
+
+    .info-card-value {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--cf-text);
+    }
+
+    .urgency-high { color: var(--cf-red); }
+    .urgency-medium { color: var(--cf-yellow); }
+    .urgency-low { color: var(--cf-green); }
+
+    /* ─── ACTION ITEMS TAB ──────────────────────────── */
+    .action-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px;
+      border: 1px solid var(--cf-border);
+      border-radius: 8px;
+      margin-bottom: 8px;
+      background: rgba(255,255,255,0.02);
+    }
+
+    .action-owner {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 10px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .owner-se { background: rgba(246,130,31,0.15); color: var(--cf-orange); border: 1px solid rgba(246,130,31,0.3); }
+    .owner-ae { background: rgba(52,152,219,0.15); color: var(--cf-blue); border: 1px solid rgba(52,152,219,0.3); }
+    .owner-customer { background: rgba(39,174,96,0.15); color: var(--cf-green); border: 1px solid rgba(39,174,96,0.3); }
+
+    .action-text { font-size: 13px; flex: 1; }
+    .action-due { font-size: 11px; color: var(--cf-muted); margin-top: 2px; }
+
+    /* ─── TAGS ─────────────────────────────────────── */
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+
+    .tag {
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-weight: 500;
+    }
+
+    .tag-product { background: rgba(246,130,31,0.1); color: var(--cf-orange-light); border: 1px solid rgba(246,130,31,0.25); }
+    .tag-competitor { background: rgba(231,76,60,0.1); color: #E07070; border: 1px solid rgba(231,76,60,0.25); }
+    .tag-requirement { background: rgba(52,152,219,0.1); color: #70B0E0; border: 1px solid rgba(52,152,219,0.25); }
+
+    /* ─── CRM NOTE TAB ──────────────────────────────── */
+    .crm-box {
+      background: var(--cf-darker);
+      border: 1px solid var(--cf-border);
+      border-radius: 8px;
+      padding: 16px;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 12px;
+      line-height: 1.8;
+      color: #B8C4D4;
+      white-space: pre-wrap;
+      margin-bottom: 12px;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    .copy-btn {
+      background: var(--cf-orange);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    .copy-btn:hover { opacity: 0.85; }
+    .copy-btn.copied { background: var(--cf-green); }
+
+    /* ─── METRICS SECTION ───────────────────────────── */
+    .metrics-section {
+      grid-column: 1 / -1;
+      background: var(--cf-card);
+      border: 1px solid var(--cf-border);
+      border-radius: 12px;
+      padding: 24px;
+    }
+
+    .metrics-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .metric-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--cf-border);
+      border-radius: 10px;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .metric-value {
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .metric-label { font-size: 12px; color: var(--cf-muted); }
+
+    .bur-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .bur-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--cf-border);
+      border-radius: 10px;
+      padding: 16px;
+    }
+
+    .bur-title { font-size: 13px; font-weight: 700; margin-bottom: 12px; }
+
+    .progress-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .progress-label { font-size: 12px; color: var(--cf-muted); width: 120px; flex-shrink: 0; }
+
+    .progress-bar {
+      flex: 1;
+      height: 8px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 1.5s ease;
+    }
+
+    .progress-value { font-size: 12px; font-weight: 700; width: 40px; text-align: right; }
+
+    .fill-orange { background: var(--cf-orange); }
+    .fill-green { background: var(--cf-green); }
+    .fill-blue { background: var(--cf-blue); }
+    .fill-red { background: var(--cf-red); }
+
+    /* ─── FOOTER ─────────────────────────────────────── */
+    footer {
+      text-align: center;
+      padding: 32px;
+      color: var(--cf-muted);
+      font-size: 12px;
+      border-top: 1px solid var(--cf-border);
+    }
+
+    footer a { color: var(--cf-orange); text-decoration: none; }
+
+    /* ─── SCROLLBAR ─────────────────────────────────── */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: var(--cf-darker); }
+    ::-webkit-scrollbar-thumb { background: var(--cf-border); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--cf-muted); }
+
+    /* ─── RESPONSIVE ────────────────────────────────── */
+    @media (max-width: 900px) {
+      .main { grid-template-columns: 1fr; }
+      .impact-bar { grid-template-columns: 1fr 1fr; }
+      .metrics-grid { grid-template-columns: 1fr 1fr; }
+      .bur-section { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">
+    <div class="logo-icon">⚡</div>
+    <div>
+      <div>SE Meeting Intelligence</div>
+      <div class="logo-sub">Powered by Claude AI · Built for Cloudflare SEs</div>
+    </div>
+  </div>
+  <div class="header-badge">Live Demo</div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>From Transcript to CRM in 60 Seconds</h1>
+  <p>
+    Enterprise SEs spend 15–20 hours per week on internal documentation.
+    This tool compresses that to minutes — extending customer-facing capacity without adding headcount.
+  </p>
+
+  <div class="impact-bar">
+    <div class="impact-card">
+      <div class="impact-number">43</div>
+      <div class="impact-label">Minutes Saved</div>
+      <div class="impact-sub">Per call, per SE</div>
+    </div>
+    <div class="impact-card">
+      <div class="impact-number">8</div>
+      <div class="impact-label">Fields Extracted</div>
+      <div class="impact-sub">Automatically structured</div>
+    </div>
+    <div class="impact-card">
+      <div class="impact-number">+12%</div>
+      <div class="impact-label">BUR Improvement</div>
+      <div class="impact-sub">Billing Utilization Rate</div>
+    </div>
+    <div class="impact-card">
+      <div class="impact-number">0</div>
+      <div class="impact-label">Manual CRM Entries</div>
+      <div class="impact-sub">Fully automated</div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN PANELS -->
+<div class="main">
+
+  <!-- LEFT: RAW TRANSCRIPT -->
+  <div class="panel">
+    <div class="panel-header">
+      <div class="panel-title">
+        📄 Raw Call Transcript
+        <span class="panel-badge badge-raw">Input</span>
+      </div>
+      <span style="font-size:11px; color: var(--cf-muted);">Acme Financial · Apr 14, 2026 · 47 min</span>
+    </div>
+    <div class="transcript-text" id="transcriptText">[TRANSCRIPT - Acme Financial Services - Discovery Call - April 14, 2026]
+[Duration: 47 minutes]
+
+SE (Divya): Thanks everyone for joining. I'm Divya from Cloudflare's Solutions Engineering team, and I have Mark from our account team. Could everyone on your side introduce themselves?
+
+Customer (Sarah Chen, CISO): Sure — I'm Sarah Chen, CISO at Acme Financial. With me is Tom Rodriguez, Head of Infrastructure, and Lisa Park, VP of Application Security.
+
+SE: Tom, you mentioned on our intro call that you had significant incidents last quarter — can you walk me through what happened?
+
+Tom (Head of Infrastructure): Three major DDoS incidents in Q4. Our current Zscaler setup is struggling with volume and attack sophistication. We're also running Palo Alto for network firewall and managing three separate vendors is becoming operationally painful. 15,000 employees, VPN infrastructure creaking under hybrid load.
+
+Sarah (CISO): The bigger concern is API exposure. We launched a mobile banking platform 8 months ago — 47 public-facing APIs. Two months ago we had a credential stuffing attack — 50,000 accounts compromised. Board wants a solution before September. We need this by Q3.
+
+SE: Is the timeline driven by the board presentation or is there a contract renewal?
+
+Tom: Both. Zscaler contract up for renewal in August. Been unhappy for 18 months — support poor, performance unacceptable during peak trading hours.
+
+SE: And budget — existing approved budget or new business case?
+
+Sarah: Budget approved. Board approved $2.8M for security infrastructure as a direct response to the incident. We need to make the right decision, not the fast one.
+
+Lisa (VP Application Security): How does Cloudflare handle client-side JavaScript security? We had a Magecart-style attack attempt last month — skimmer injection on our payment page. We got lucky catching it manually. And we're 3 months from launching an AI-powered financial advisor — need LLM protection from prompt injection before go-live.
+
+SE: Both exactly what we built for. Page Integrity Manager handles client-side protection — monitors every JavaScript resource on payment pages in real time. AI Gateway is our LLM security layer — sits between your application and the model, handles prompt injection detection, rate limiting, content filtering. Having both requirements is actually a strong case for Cloudflare's unified platform versus point solutions.
+
+Tom: What does migration from Zscaler look like in practice?
+
+SE: More manageable than teams expect. Parallel deployment — users stay on Zscaler while we onboard a pilot group to Cloudflare Access. Typically 30 days pilot, 60 days to full cutover for your size. I can have our Zero Trust architect prepare a specific migration analysis.
+
+Mark (AE): I'll send over our POC framework document by end of this week.
+
+Sarah: What do you need from us to get started?
+
+SE: Technical deep-dive with Tom's infrastructure team to understand network topology and identity stack. And if Lisa can share the AI architecture, we can scope AI Gateway in parallel. Can we get on the calendar in the next two weeks?
+
+Tom: Yes. Our ideal decision date is June 1st so we have time to implement before August renewal.
+
+SE: We'll work backwards from June 1st. Mark, can you coordinate?
+
+Mark: On it — something out today.
+
+Sarah: One more — what does Cloudflare look like versus Zscaler on pricing at our scale?
+
+SE: I'll have our team put together a TCO comparison — apples to apples on what you're paying Zscaler versus a Cloudflare deployment at same scope. At 15,000 seats we're competitive, and when you factor in consolidating the Palo Alto workload, the combined TCO story is usually compelling.
+
+[Call ended]</div>
+    <div class="transcript-meta">
+      <span>📊 Word count: ~580</span>
+      <span>👥 Participants: 5</span>
+      <span>⏱️ Manual notes time: ~45 min</span>
+      <span>🤖 AI processing time: ~8 sec</span>
+    </div>
+  </div>
+
+  <!-- RIGHT: STRUCTURED OUTPUT -->
+  <div class="panel">
+    <div class="panel-header">
+      <div class="panel-title">
+        🤖 AI-Structured Output
+        <span class="panel-badge badge-ai">Claude AI</span>
+      </div>
+      <span class="panel-badge badge-live">✓ Generated</span>
+    </div>
+
+    <div class="output-tabs">
+      <div class="tab active" onclick="switchTab('summary')">📝 Summary</div>
+      <div class="tab" onclick="switchTab('actions')">✅ Actions</div>
+      <div class="tab" onclick="switchTab('technical')">⚙️ Technical</div>
+      <div class="tab" onclick="switchTab('crm')">📊 CRM Note</div>
+      <div class="tab" onclick="switchTab('email')">📧 Email Draft</div>
+    </div>
+
+    <!-- SUMMARY TAB -->
+    <div class="tab-content active" id="tab-summary">
+      <div class="summary-text">
+        Discovery call with Acme Financial Services CISO Sarah Chen and infrastructure leadership. The account has a $2.8M board-approved security budget following a credential stuffing incident affecting 50,000 customers. Zscaler contract renewal in August creates a competitive displacement opportunity with June 1st decision deadline. Strong multi-product opportunity across Zero Trust, API security, client-side protection, and AI Gateway.
+      </div>
+
+      <div class="info-grid">
+        <div class="info-card">
+          <div class="info-card-label">Company</div>
+          <div class="info-card-value">Acme Financial Services</div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-label">Industry</div>
+          <div class="info-card-value">Financial Services / Banking</div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-label">Deal Stage</div>
+          <div class="info-card-value">Late Discovery</div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-label">Urgency</div>
+          <div class="info-card-value urgency-high">🔴 High</div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-label">Budget</div>
+          <div class="info-card-value">$2.8M (Board Approved)</div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-label">Decision Date</div>
+          <div class="info-card-value">June 1, 2026</div>
+        </div>
+        <div class="info-card" style="grid-column: 1/-1;">
+          <div class="info-card-label">Decision Makers</div>
+          <div class="info-card-value">Sarah Chen (CISO) · Tom Rodriguez (Head of Infrastructure) · Lisa Park (VP App Security)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACTIONS TAB -->
+    <div class="tab-content" id="tab-actions">
+      <div class="action-item">
+        <span class="action-owner owner-se">SE</span>
+        <div>
+          <div class="action-text">Coordinate technical deep-dive session with Tom's infrastructure team</div>
+          <div class="action-due">📅 Within 2 weeks</div>
+        </div>
+      </div>
+      <div class="action-item">
+        <span class="action-owner owner-se">SE</span>
+        <div>
+          <div class="action-text">Have Zero Trust architect prepare Zscaler migration analysis for Acme's architecture</div>
+          <div class="action-due">📅 Before POC kick-off</div>
+        </div>
+      </div>
+      <div class="action-item">
+        <span class="action-owner owner-se">SE</span>
+        <div>
+          <div class="action-text">Scope AI Gateway deployment — coordinate with Lisa Park on AI financial advisor architecture</div>
+          <div class="action-due">📅 In parallel with ZT scope</div>
+        </div>
+      </div>
+      <div class="action-item">
+        <span class="action-owner owner-ae">AE</span>
+        <div>
+          <div class="action-text">Send POC framework document to customer</div>
+          <div class="action-due">📅 End of this week</div>
+        </div>
+      </div>
+      <div class="action-item">
+        <span class="action-owner owner-ae">AE</span>
+        <div>
+          <div class="action-text">Send calendar invite for technical deep-dive</div>
+          <div class="action-due">📅 Today</div>
+        </div>
+      </div>
+      <div class="action-item">
+        <span class="action-owner owner-se">SE</span>
+        <div>
+          <div class="action-text">Prepare TCO comparison: Cloudflare vs. Zscaler + Palo Alto at 15,000 seats</div>
+          <div class="action-due">📅 Before technical deep-dive</div>
+        </div>
+      </div>
+      <div class="action-item">
+        <span class="action-owner owner-customer">Customer</span>
+        <div>
+          <div class="action-text">Share current network topology and identity stack for ZT migration analysis</div>
+          <div class="action-due">📅 At technical deep-dive</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TECHNICAL TAB -->
+    <div class="tab-content" id="tab-technical">
+      <p style="font-size:12px; color: var(--cf-muted); margin-bottom: 12px;">TECHNICAL REQUIREMENTS</p>
+      <div class="tags" style="margin-bottom: 20px;">
+        <span class="tag tag-requirement">Zero Trust / ZTNA (15,000 users)</span>
+        <span class="tag tag-requirement">API Security (47 public APIs)</span>
+        <span class="tag tag-requirement">DDoS Protection upgrade</span>
+        <span class="tag tag-requirement">Client-side JS security</span>
+        <span class="tag tag-requirement">LLM / AI Gateway protection</span>
+        <span class="tag tag-requirement">Credential stuffing prevention</span>
+        <span class="tag tag-requirement">Multi-vendor consolidation</span>
+        <span class="tag tag-requirement">VPN replacement (hybrid workforce)</span>
+      </div>
+
+      <p style="font-size:12px; color: var(--cf-muted); margin-bottom: 12px;">CLOUDFLARE PRODUCTS RELEVANT</p>
+      <div class="tags" style="margin-bottom: 20px;">
+        <span class="tag tag-product">Cloudflare Access (ZTNA)</span>
+        <span class="tag tag-product">Magic Transit (DDoS)</span>
+        <span class="tag tag-product">API Gateway</span>
+        <span class="tag tag-product">Page Integrity Manager</span>
+        <span class="tag tag-product">AI Gateway</span>
+        <span class="tag tag-product">Bot Management</span>
+        <span class="tag tag-product">Workers AI</span>
+      </div>
+
+      <p style="font-size:12px; color: var(--cf-muted); margin-bottom: 12px;">⚠️ COMPETITIVE SIGNALS</p>
+      <div class="tags">
+        <span class="tag tag-competitor">Zscaler — current ZTNA/DDoS (contract up Aug 2026, unhappy 18 months)</span>
+        <span class="tag tag-competitor">Palo Alto — network firewall (open to consolidation)</span>
+      </div>
+    </div>
+
+    <!-- CRM NOTE TAB -->
+    <div class="tab-content" id="tab-crm">
+      <p style="font-size:12px; color: var(--cf-muted); margin-bottom: 10px;">Paste directly into Salesforce Activity log</p>
+      <div class="crm-box" id="crmNoteText">DISCOVERY CALL — Acme Financial Services | Apr 14, 2026
+
+Conducted 47-minute discovery call with Sarah Chen (CISO), Tom Rodriguez (Head of Infrastructure), and Lisa Park (VP Application Security). Account is actively evaluating Cloudflare as a replacement for Zscaler (contract renewal August 2026) following three major DDoS incidents in Q4 2025 and a credential stuffing attack in February 2026 that compromised 50,000 customer accounts.
+
+Board has approved $2.8M security infrastructure budget as a direct response. Decision deadline is June 1, 2026 to allow implementation before the August Zscaler renewal.
+
+Key requirements identified: Zero Trust/ZTNA for 15,000 users, API security for 47 public-facing APIs, DDoS protection upgrade, client-side JavaScript protection (payment pages — Magecart concern), and AI Gateway for an upcoming AI-powered financial advisor launching in 90 days.
+
+Competitive context: Zscaler is the incumbent (unhappy, performance issues during peak trading hours). Palo Alto also in use for network firewall — consolidation opportunity.
+
+Next steps: SE to coordinate technical deep-dive within 2 weeks. AE to send POC framework document by end of week. SE to prepare Zero Trust migration analysis and TCO comparison vs. Zscaler + Palo Alto at 15,000 seats.</div>
+      <button class="copy-btn" onclick="copyText('crmNoteText', this)">📋 Copy to Clipboard</button>
+    </div>
+
+    <!-- EMAIL TAB -->
+    <div class="tab-content" id="tab-email">
+      <p style="font-size:12px; color: var(--cf-muted); margin-bottom: 10px;">Review and send from your email client</p>
+      <div class="crm-box" id="emailText">Subject: Next Steps — Cloudflare x Acme Financial Services
+
+Hi Sarah, Tom, and Lisa,
+
+Thank you for the time today — it was a genuinely useful conversation and I came away with a clear picture of where you are and what you need.
+
+To confirm where we landed:
+
+YOUR REQUIREMENTS WE'LL ADDRESS:
+• Zero Trust replacement for Zscaler — 15,000 users, parallel deployment
+• API Security for 47 public-facing APIs (credential stuffing prevention)
+• Client-side JavaScript protection for payment pages (Page Integrity Manager)
+• AI Gateway for the financial advisor LLM — prompt injection, content filtering
+• DDoS upgrade and Palo Alto consolidation opportunity
+
+OUR NEXT STEPS:
+• Mark will send the POC framework document to you today
+• I'll coordinate a technical deep-dive with Tom's team within the next two weeks
+• Our Zero Trust architect will prepare a Zscaler migration analysis for your specific architecture
+• I'll prepare a TCO comparison — Cloudflare vs. your current Zscaler + Palo Alto stack at 15,000 seats
+
+We'll structure everything to support your June 1st decision timeline with room for a clean implementation before the August renewal.
+
+Lisa — can you share more about the AI financial advisor architecture when you have a moment? I want to make sure the AI Gateway scoping is accurate before we finalize the POC plan.
+
+Looking forward to the deep-dive.
+
+Best,
+Divya
+Cloudflare Solutions Engineering</div>
+      <button class="copy-btn" onclick="copyText('emailText', this)" style="margin-top: 10px;">📋 Copy to Clipboard</button>
+    </div>
+  </div>
+
+  <!-- BOTTOM: IMPACT METRICS -->
+  <div class="metrics-section">
+    <div class="metrics-title">📈 SE Org Impact — What This Tool Changes</div>
+
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-value" style="color: var(--cf-orange);">43 min</div>
+        <div class="metric-label">Saved per call</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value" style="color: var(--cf-green);">~15 hrs</div>
+        <div class="metric-label">Saved per SE per week</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value" style="color: var(--cf-blue);">65% → 78%</div>
+        <div class="metric-label">BUR improvement</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value" style="color: var(--cf-orange);">8 hrs → 3 hrs</div>
+        <div class="metric-label">Internal time / week</div>
+      </div>
+    </div>
+
+    <div class="bur-section">
+      <div class="bur-card">
+        <div class="bur-title">⏱️ Before: Without SE Meeting Intelligence</div>
+        <div class="progress-row">
+          <div class="progress-label">BUR (target 65%)</div>
+          <div class="progress-bar"><div class="progress-fill fill-red" style="width: 54%;"></div></div>
+          <div class="progress-value" style="color: var(--cf-red);">54%</div>
+        </div>
+        <div class="progress-row">
+          <div class="progress-label">PCU (target 75%)</div>
+          <div class="progress-bar"><div class="progress-fill fill-red" style="width: 60%;"></div></div>
+          <div class="progress-value" style="color: var(--cf-red);">60%</div>
+        </div>
+        <div class="progress-row">
+          <div class="progress-label">Internal Time</div>
+          <div class="progress-bar"><div class="progress-fill fill-red" style="width: 80%;"></div></div>
+          <div class="progress-value" style="color: var(--cf-red);">16 hrs</div>
+        </div>
+        <div class="progress-row">
+          <div class="progress-label">Load</div>
+          <div class="progress-bar"><div class="progress-fill fill-red" style="width: 120%;"></div></div>
+          <div class="progress-value" style="color: var(--cf-red);">120%</div>
+        </div>
+      </div>
+
+      <div class="bur-card">
+        <div class="bur-title">✅ After: With SE Meeting Intelligence</div>
+        <div class="progress-row">
+          <div class="progress-label">BUR (target 65%)</div>
+          <div class="progress-bar"><div class="progress-fill fill-green" style="width: 78%;"></div></div>
+          <div class="progress-value" style="color: var(--cf-green);">78%</div>
+        </div>
+        <div class="progress-row">
+          <div class="progress-label">PCU (target 75%)</div>
+          <div class="progress-bar"><div class="progress-fill fill-green" style="width: 80%;"></div></div>
+          <div class="progress-value" style="color: var(--cf-green);">80%</div>
+        </div>
+        <div class="progress-row">
+          <div class="progress-label">Internal Time</div>
+          <div class="progress-bar"><div class="progress-fill fill-green" style="width: 30%;"></div></div>
+          <div class="progress-value" style="color: var(--cf-green);">3 hrs</div>
+        </div>
+        <div class="progress-row">
+          <div class="progress-label">Load</div>
+          <div class="progress-bar"><div class="progress-fill fill-green" style="width: 100%;"></div></div>
+          <div class="progress-value" style="color: var(--cf-green);">100%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  Built by Divya Krishnamurthi · Powered by
+  <a href="https://www.anthropic.com/claude" target="_blank">Claude AI</a> ·
+  <a href="https://github.com/dkrish/se-meeting-intelligence" target="_blank">View on GitHub</a>
+  <br><br>
+  <span style="color: rgba(255,255,255,0.2);">
+    Concept: Compress SE internal work time → extend customer-facing capacity without adding headcount
+  </span>
+</footer>
+
+<script>
+  function switchTab(tabName) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    event.target.classList.add('active');
+    document.getElementById('tab-' + tabName).classList.add('active');
+  }
+
+  function copyText(elementId, btn) {
+    const text = document.getElementById(elementId).innerText;
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = '✅ Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = '📋 Copy to Clipboard';
+        btn.classList.remove('copied');
+      }, 2000);
+    });
+  }
+
+  // Animate progress bars on load
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.querySelectorAll('.progress-fill').forEach(bar => {
+        const width = bar.style.width;
+        bar.style.width = '0%';
+        setTimeout(() => { bar.style.width = width; }, 100);
+      });
+    }, 300);
+  });
+</script>
+
+</body>
+</html>
