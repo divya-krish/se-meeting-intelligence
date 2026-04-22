@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Scout | Scouting deal intelligence from every conversation</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23f38020'/><circle cx='16' cy='16' r='12' stroke='white' stroke-width='2' fill='none'/><circle cx='16' cy='16' r='5.5' stroke='rgba(255,255,255,0.45)' stroke-width='1.2' fill='none'/><line x1='16' y1='4' x2='16' y2='28' stroke='rgba(255,255,255,0.2)' stroke-width='0.8'/><line x1='4' y1='16' x2='28' y2='16' stroke='rgba(255,255,255,0.2)' stroke-width='0.8'/><line x1='16' y1='16' x2='25' y2='7' stroke='white' stroke-width='1.8' stroke-linecap='round'/><circle cx='16' cy='16' r='2.2' fill='white'/></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -331,6 +332,108 @@
     .tab-content { display: none; padding: 16px 20px; overflow-y: auto; flex: 1; }
     .tab-content.active { display: block; }
     #tab-crm.active, #tab-email.active { display: flex; flex-direction: column; overflow: hidden; }
+
+    /* ─── DEAL SCORE ──────────────────────────────── */
+    .deal-score-strip {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      background: rgba(70,164,108,0.08);
+      border: 1px solid rgba(70,164,108,0.25);
+      border-radius: 8px;
+      margin-bottom: 12px;
+    }
+    .ds-label {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--cf-muted);
+      white-space: nowrap;
+    }
+    .ds-bar-wrap {
+      flex: 1;
+      height: 6px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .ds-bar-fill {
+      height: 100%;
+      background: linear-gradient(to right, var(--cf-green), #64d8a0);
+      border-radius: 3px;
+      width: 0%;
+      transition: width 1.2s ease;
+    }
+    .ds-number {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--cf-green);
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .ds-number span { font-size: 11px; color: var(--cf-muted); font-weight: 400; }
+    .ds-rating {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--cf-green);
+      white-space: nowrap;
+    }
+    .ds-signals {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 6px;
+      margin-bottom: 12px;
+    }
+    .ds-signal-pill {
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 10px;
+      border: 1px solid;
+    }
+    .ds-pill-green { background: rgba(70,164,108,0.12); color: var(--cf-green); border-color: rgba(70,164,108,0.3); }
+    .ds-pill-red   { background: rgba(218,48,76,0.12);  color: var(--cf-red);   border-color: rgba(218,48,76,0.3); }
+    .ds-pill-yellow{ background: rgba(244,169,41,0.12); color: var(--cf-yellow);border-color: rgba(244,169,41,0.3); }
+
+    /* ─── SLACK BUTTON ─────────────────────────────── */
+    .slack-btn {
+      background: rgba(74,21,75,0.3);
+      border: 1px solid rgba(180,80,180,0.35);
+      color: #d9a0d9;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 11px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: background 0.2s;
+    }
+    .slack-btn:hover { background: rgba(74,21,75,0.5); }
+
+    /* ─── TOAST ────────────────────────────────────── */
+    .toast {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--cf-card);
+      border: 1px solid var(--cf-border);
+      color: var(--cf-text);
+      padding: 12px 22px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-family: 'Inter', sans-serif;
+      opacity: 0;
+      transition: opacity 0.25s, transform 0.25s;
+      pointer-events: none;
+      z-index: 9999;
+      white-space: nowrap;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
     /* ─── SUMMARY TAB ──────────────────────────────── */
     .summary-text {
@@ -1170,7 +1273,10 @@ SE: I'll have our team put together a TCO comparison — apples to apples on wha
         🤖 AI-Structured Output
         <span class="panel-badge badge-ai">Claude AI</span>
       </div>
-      <span id="generatedBadge" class="panel-badge badge-live">✓ Generated</span>
+      <div style="display:flex; align-items:center; gap:8px;">
+        <button class="slack-btn" onclick="shareToSlack()">🔔 Share to Slack</button>
+        <span id="generatedBadge" class="panel-badge badge-live">✓ Generated</span>
+      </div>
     </div>
 
     <!-- Loading overlay -->
@@ -1190,6 +1296,22 @@ SE: I'll have our team put together a TCO comparison — apples to apples on wha
 
     <!-- SUMMARY TAB -->
     <div class="tab-content active" id="tab-summary">
+
+      <!-- Deal Score -->
+      <div class="deal-score-strip">
+        <div class="ds-label">Deal Score</div>
+        <div class="ds-bar-wrap"><div class="ds-bar-fill" id="dealScoreBar" style="width:0%"></div></div>
+        <div class="ds-number">82<span>/100</span></div>
+        <div class="ds-rating">🟢 Strong</div>
+      </div>
+      <div class="ds-signals">
+        <span class="ds-signal-pill ds-pill-green">✓ Budget approved $2.8M</span>
+        <span class="ds-signal-pill ds-pill-green">✓ Decision date confirmed</span>
+        <span class="ds-signal-pill ds-pill-green">✓ CISO + infra in room</span>
+        <span class="ds-signal-pill ds-pill-yellow">⚠ Zscaler renewal Aug '26</span>
+        <span class="ds-signal-pill ds-pill-red">✗ No champion identified</span>
+      </div>
+
       <div class="summary-text">
         Discovery call with Acme Financial Services CISO Sarah Chen and infrastructure leadership. The account has a $2.8M board-approved security budget following a credential stuffing incident affecting 50,000 customers. Zscaler contract renewal in August creates a competitive displacement opportunity with June 1st decision deadline. Strong multi-product opportunity across Zero Trust, API security, client-side protection, and AI Gateway.
       </div>
@@ -1505,6 +1627,9 @@ Cloudflare Solutions Engineering</div>
       // Flash the badge to signal completion
       badge.style.background = 'rgba(72,187,120,0.35)';
       setTimeout(() => { badge.style.background = ''; }, 800);
+
+      // Animate deal score bar
+      animateDealScore();
     }, 2500);
   }
 
@@ -1610,6 +1735,24 @@ POC / Technical validation               SE        Week 4–5 (May 5–12)
     document.getElementById('fn-win').textContent   = winPct + '%';
   }
 
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3200);
+  }
+
+  function shareToSlack() {
+    showToast('📤 Slack integration available in v2 — use JSON export to post to #se-deals');
+  }
+
+  function animateDealScore() {
+    setTimeout(() => {
+      const bar = document.getElementById('dealScoreBar');
+      if (bar) bar.style.width = '82%';
+    }, 400);
+  }
+
   // Animate progress bars on load
   window.addEventListener('load', () => {
     calcROI(); // init calculator
@@ -1620,6 +1763,8 @@ POC / Technical validation               SE        Week 4–5 (May 5–12)
         setTimeout(() => { bar.style.width = width; }, 100);
       });
     }, 300);
+    // Auto-run Scout demo on page load
+    setTimeout(() => { runScout(); }, 900);
   });
 </script>
 
@@ -1704,6 +1849,9 @@ POC / Technical validation               SE        Week 4–5 (May 5–12)
   </div>
   <p class="roi-footnote">Scout reduces post-call admin from <span id="fn-admin">45</span> min → 8 min per call · 40% of recovered time redirected to customer-facing work · <span id="fn-deals">91</span> additional deal opportunities at <span id="fn-win">30%</span> win rate · 35 avg SE hours per deal</p>
 </div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
 
 <!-- FOOTER -->
 <footer class="site-footer">
