@@ -1167,7 +1167,10 @@ SE: I'll have our team put together a TCO comparison — apples to apples on wha
 
     <!-- CRM NOTE TAB -->
     <div class="tab-content" id="tab-crm">
-      <p style="font-size:12px; color: var(--cf-muted); margin-bottom: 10px;">Paste directly into Salesforce Activity log</p>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+        <p style="font-size:12px; color: var(--cf-muted); margin:0;">Paste directly into Salesforce Activity log</p>
+        <button class="copy-btn" style="font-size:11px; padding:5px 12px;" onclick="copyText('crmNoteText', this)">📋 Copy to Clipboard</button>
+      </div>
       <div class="crm-box" id="crmNoteText">DISCOVERY CALL — Acme Financial Services | Apr 14, 2026
 
 Conducted 47-minute discovery call with Sarah Chen (CISO), Tom Rodriguez (Head of Infrastructure), and Lisa Park (VP Application Security). Account is actively evaluating Cloudflare as a replacement for Zscaler (contract renewal August 2026) following three major DDoS incidents in Q4 2025 and a credential stuffing attack in February 2026 that compromised 50,000 customer accounts.
@@ -1179,12 +1182,14 @@ Key requirements identified: Zero Trust/ZTNA for 15,000 users, API security for 
 Competitive context: Zscaler is the incumbent (unhappy, performance issues during peak trading hours). Palo Alto also in use for network firewall — consolidation opportunity.
 
 Next steps: SE to coordinate technical deep-dive within 2 weeks. AE to send POC framework document by end of week. SE to prepare Zero Trust migration analysis and TCO comparison vs. Zscaler + Palo Alto at 15,000 seats.</div>
-      <button class="copy-btn" onclick="copyText('crmNoteText', this)">📋 Copy to Clipboard</button>
     </div>
 
     <!-- EMAIL TAB -->
     <div class="tab-content" id="tab-email">
-      <p style="font-size:12px; color: var(--cf-muted); margin-bottom: 10px;">Review and send from your email client</p>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+        <p style="font-size:12px; color: var(--cf-muted); margin:0;">Review and send from your email client</p>
+        <button class="copy-btn" style="font-size:11px; padding:5px 12px;" onclick="copyText('emailText', this)">📋 Copy to Clipboard</button>
+      </div>
       <div class="crm-box" id="emailText">Subject: Next Steps — Cloudflare x Acme Financial Services
 
 Hi Sarah, Tom, and Lisa,
@@ -1215,7 +1220,6 @@ Looking forward to the deep-dive.
 Best,
 Divya
 Cloudflare Solutions Engineering</div>
-      <button class="copy-btn" onclick="copyText('emailText', this)" style="margin-top: 10px;">📋 Copy to Clipboard</button>
     </div>
 
   </div>
