@@ -682,7 +682,7 @@
     /* ─── TWO-COL WRAPPER ──────────────────────────── */
     .two-col-wrapper {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 3fr 2fr;
       align-items: start;
       border-top: 1px solid var(--cf-border);
     }
@@ -1170,15 +1170,14 @@
 
     /* compact personas inside two-col layout */
     .two-col-wrapper .personas-grid {
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(3, 1fr);
       gap: 12px;
+      max-width: 100%;
     }
-    .two-col-wrapper .persona-card { padding: 14px 16px; }
-    .two-col-wrapper .persona-headline {
-      font-size: 12px;
-      margin-bottom: 10px;
-    }
+    .two-col-wrapper .persona-card { padding: 14px; }
+    .two-col-wrapper .persona-headline { font-size: 12px; margin-bottom: 10px; }
     .two-col-wrapper .persona-benefits li { font-size: 12px; }
+    .two-col-wrapper .persona-stat { font-size: 11px; }
     .two-col-wrapper .personas-header { margin-bottom: 20px; }
     .roi-header { text-align: center; margin-bottom: 36px; }
     .roi-header h2 {
