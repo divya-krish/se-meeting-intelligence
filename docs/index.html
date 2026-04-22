@@ -679,10 +679,20 @@
     .col-delta  { color: var(--cf-orange) !important; font-weight: 700; }
 
     /* ─── PERSONA BENEFITS ──────────────────────────── */
+    /* ─── TWO-COL WRAPPER ──────────────────────────── */
+    .two-col-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: start;
+      border-top: 1px solid var(--cf-border);
+    }
+
     .personas-section {
       background: var(--cf-dark);
-      border-top: 1px solid var(--cf-border);
-      padding: 36px 32px 24px;
+      border-top: none;
+      border-right: 1px solid var(--cf-border);
+      padding: 36px 28px 32px;
+      height: 100%;
     }
 
     .personas-header {
@@ -1154,9 +1164,22 @@
     /* ─── ROI CALCULATOR ─────────────────────────────── */
     .roi-section {
       background: linear-gradient(135deg, var(--cf-blue-dark) 0%, var(--cf-dark) 100%);
-      border-top: 1px solid var(--cf-border);
-      padding: 44px 32px 52px;
+      border-top: none;
+      padding: 36px 28px 32px;
     }
+
+    /* compact personas inside two-col layout */
+    .two-col-wrapper .personas-grid {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    .two-col-wrapper .persona-card { padding: 14px 16px; }
+    .two-col-wrapper .persona-headline {
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+    .two-col-wrapper .persona-benefits li { font-size: 12px; }
+    .two-col-wrapper .personas-header { margin-bottom: 20px; }
     .roi-header { text-align: center; margin-bottom: 36px; }
     .roi-header h2 {
       font-size: 22px; font-weight: 800;
@@ -1697,6 +1720,7 @@ Cloudflare Solutions Engineering</div>
 </div>
 
 <!-- PERSONA BENEFITS -->
+<div class="two-col-wrapper">
 <div class="personas-section">
   <div class="personas-header">
     <div class="personas-eyebrow">Built for SE Orgs</div>
@@ -2017,6 +2041,7 @@ POC / Technical validation               SE        Week 4–5 (May 5–12)
   </div>
   <p class="roi-footnote">Scout reduces post-call admin from <span id="fn-admin">45</span> min → 8 min per call · 40% of recovered time redirected to customer-facing work · <span id="fn-deals">91</span> additional deal opportunities at <span id="fn-win">30%</span> win rate · 35 avg SE hours per deal</p>
 </div>
+</div><!-- /two-col-wrapper -->
 
 <!-- V2 ROADMAP -->
 <div style="background: var(--cf-darker); border-top: 1px solid var(--cf-border);">
