@@ -248,6 +248,32 @@
     .tab:hover { color: var(--cf-text); }
     .tab.active { color: var(--cf-orange); border-bottom-color: var(--cf-orange); }
 
+    .tab-impact-highlight {
+      color: var(--cf-orange) !important;
+      background: rgba(246,130,31,0.08);
+      border-radius: 6px 6px 0 0;
+      position: relative;
+    }
+
+    .tab-impact-highlight::after {
+      content: '●';
+      font-size: 6px;
+      color: var(--cf-orange);
+      position: absolute;
+      top: 6px;
+      right: 4px;
+      animation: pulse-dot 1.8s ease-in-out infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.2; }
+    }
+
+    .tab-impact-highlight.active {
+      background: rgba(246,130,31,0.15);
+    }
+
     .tab-content { display: none; padding: 20px; }
     .tab-content.active { display: block; }
 
@@ -664,7 +690,7 @@
 <!-- HERO -->
 <div class="hero">
   <h1>From Transcript to CRM in 60 Seconds</h1>
-  <p>Enterprise SEs spend 15–20 hours per week on internal documentation.<br>This tool compresses that to minutes — more customer time, zero added headcount.</p>
+  <p>Enterprise SEs spend 15–20 hours per week on internal documentation.<br>This tool compresses that to minutes — giving the SE org 3,500 hours back every year.</p>
 
   <div class="impact-bar">
     <div class="impact-card">
@@ -673,9 +699,9 @@
       <div class="impact-sub">Per call, per SE</div>
     </div>
     <div class="impact-card">
-      <div class="impact-number">8</div>
-      <div class="impact-label">Fields Extracted</div>
-      <div class="impact-sub">Automatically structured</div>
+      <div class="impact-number">7</div>
+      <div class="impact-label">Action Items Captured</div>
+      <div class="impact-sub">Per call, automatically</div>
     </div>
     <div class="impact-card">
       <div class="impact-number">+24pts</div>
@@ -772,7 +798,7 @@ SE: I'll have our team put together a TCO comparison — apples to apples on wha
       <div class="tab" onclick="switchTab('technical')">⚙️ Technical</div>
       <div class="tab" onclick="switchTab('crm')">📊 CRM Note</div>
       <div class="tab" onclick="switchTab('email')">📧 Email Draft</div>
-      <div class="tab" onclick="switchTab('impact')">📈 Impact</div>
+      <div class="tab tab-impact-highlight" onclick="switchTab('impact')">📈 Impact</div>
     </div>
 
     <!-- SUMMARY TAB -->
@@ -976,26 +1002,26 @@ Cloudflare Solutions Engineering</div>
           <div class="flip-savings">saves 13 hrs / week</div>
         </div>
         <div class="impact-flip-card">
-          <div class="flip-label">BUR — Billing Utilization Rate (target 65%)</div>
+          <div class="flip-label">BUR (target 65%)</div>
           <div class="flip-row">
             <span class="flip-before">54%</span>
             <span class="flip-arrow">→</span>
             <span class="flip-after">78%</span>
           </div>
-          <div class="flip-savings">+24 pts utilization</div>
+          <div class="flip-savings">Billing Utilization Rate · +24 pts</div>
         </div>
       </div>
 
       <!-- Secondary metrics row -->
       <div style="display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 16px;">
         <div class="impact-flip-card">
-          <div class="flip-label">PCU — Productive Chargeable Utilization (target 75%)</div>
+          <div class="flip-label">PCU (target 75%)</div>
           <div class="flip-row">
             <span class="flip-before">60%</span>
             <span class="flip-arrow">→</span>
             <span class="flip-after">80%</span>
           </div>
-          <div class="flip-savings">+20 pts coverage</div>
+          <div class="flip-savings">Productive Chargeable Utilization · +20 pts</div>
         </div>
         <div class="impact-flip-card">
           <div class="flip-label">SE Load (Target 100%)</div>
