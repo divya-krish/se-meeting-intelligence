@@ -864,6 +864,118 @@
     ::-webkit-scrollbar-thumb { background: var(--cf-border); border-radius: 3px; }
     ::-webkit-scrollbar-thumb:hover { background: var(--cf-muted); }
 
+    /* ─── ROI CALCULATOR ─────────────────────────────── */
+    .roi-section {
+      background: linear-gradient(135deg, #0a1628 0%, var(--cf-dark) 100%);
+      border-top: 1px solid var(--cf-border);
+      padding: 44px 32px 52px;
+    }
+    .roi-header { text-align: center; margin-bottom: 36px; }
+    .roi-header h2 {
+      font-size: 22px; font-weight: 800;
+      color: var(--cf-text); margin-bottom: 8px;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    .roi-header p { font-size: 14px; color: var(--cf-muted); }
+    .roi-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 44px;
+      max-width: 960px;
+      margin: 0 auto;
+      align-items: start;
+    }
+    .roi-inputs { display: flex; flex-direction: column; gap: 24px; }
+    .roi-input-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 8px;
+    }
+    .roi-input-name {
+      font-size: 13px;
+      color: var(--cf-muted);
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+    }
+    .roi-val {
+      color: var(--cf-orange);
+      font-weight: 700;
+      font-size: 14px;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    .roi-slider {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 4px;
+      border-radius: 2px;
+      cursor: pointer;
+      outline: none;
+      border: none;
+    }
+    .roi-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px; height: 16px;
+      background: var(--cf-orange);
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 0 8px rgba(246,130,31,0.55);
+    }
+    .roi-slider::-moz-range-thumb {
+      width: 16px; height: 16px;
+      background: var(--cf-orange);
+      border-radius: 50%;
+      cursor: pointer;
+      border: none;
+    }
+    .roi-outputs { display: flex; flex-direction: column; gap: 12px; }
+    .roi-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .roi-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--cf-border);
+      border-radius: 10px;
+      padding: 16px 14px;
+      text-align: center;
+    }
+    .roi-card.money {
+      background: rgba(246,130,31,0.07);
+      border-color: rgba(246,130,31,0.3);
+      padding: 20px;
+    }
+    .roi-card-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--cf-muted);
+      margin-bottom: 8px;
+      font-family: 'Inter', sans-serif;
+    }
+    .roi-card-value {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--cf-orange);
+      font-family: 'Space Grotesk', sans-serif;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .roi-card.money .roi-card-value { font-size: 38px; }
+    .roi-card-sub {
+      font-size: 10px;
+      color: var(--cf-muted);
+      font-family: 'Inter', sans-serif;
+    }
+    .roi-footnote {
+      text-align: center;
+      margin-top: 28px;
+      font-size: 11px;
+      color: rgba(255,255,255,0.25);
+      font-style: italic;
+      font-family: 'Inter', sans-serif;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
     /* ─── RESPONSIVE ────────────────────────────────── */
     @media (max-width: 900px) {
       .main { grid-template-columns: 1fr; }
@@ -1428,8 +1540,56 @@ POC / Technical validation               SE        Week 4–5 (May 5–12)
     });
   }
 
+  function calcROI() {
+    const ses      = parseInt(document.getElementById('sl-ses').value);
+    const calls    = parseInt(document.getElementById('sl-calls').value);
+    const admin    = parseInt(document.getElementById('sl-admin').value);
+    const dealK    = parseInt(document.getElementById('sl-deal').value);
+    const winPct   = parseInt(document.getElementById('sl-win').value);
+
+    // Update slider track fill
+    ['sl-ses','sl-calls','sl-admin','sl-deal','sl-win'].forEach(id => {
+      const sl = document.getElementById(id);
+      const pct = ((sl.value - sl.min) / (sl.max - sl.min)) * 100;
+      sl.style.background = `linear-gradient(to right,#F48120 0%,#F48120 ${pct}%,rgba(255,255,255,0.1) ${pct}%)`;
+    });
+
+    // Update labels
+    document.getElementById('val-ses').textContent   = ses;
+    document.getElementById('val-calls').textContent = calls;
+    document.getElementById('val-admin').textContent = admin + ' min';
+    document.getElementById('val-deal').textContent  = '$' + dealK + 'K';
+    document.getElementById('val-win').textContent   = winPct + '%';
+
+    // Core math
+    const minSaved       = Math.max(0, admin - 8);
+    const hrsSavedPerSEWk = (minSaved * calls) / 60;
+    const totalHrsYr     = Math.round(hrsSavedPerSEWk * ses * 50);
+    const fte            = (totalHrsYr / 2080).toFixed(1);
+    const sellHrs        = totalHrsYr * 0.40;        // 40% redirected to customers
+    const deals          = Math.round(sellHrs / 35); // 35 SE hrs / deal opp
+    const revenue        = Math.round(deals * (winPct / 100) * dealK * 1000);
+
+    // Format revenue
+    const revStr = revenue >= 1e6
+      ? '$' + (revenue / 1e6).toFixed(1) + 'M'
+      : '$' + Math.round(revenue / 1000) + 'K';
+
+    // Update outputs
+    document.getElementById('out-hours').textContent   = totalHrsYr.toLocaleString();
+    document.getElementById('out-fte').textContent     = fte;
+    document.getElementById('out-deals').textContent   = deals.toLocaleString();
+    document.getElementById('out-revenue').textContent = revStr;
+
+    // Update footnote
+    document.getElementById('fn-admin').textContent = admin;
+    document.getElementById('fn-deals').textContent = deals.toLocaleString();
+    document.getElementById('fn-win').textContent   = winPct + '%';
+  }
+
   // Animate progress bars on load
   window.addEventListener('load', () => {
+    calcROI(); // init calculator
     setTimeout(() => {
       document.querySelectorAll('.progress-fill').forEach(bar => {
         const width = bar.style.width;
@@ -1439,6 +1599,88 @@ POC / Technical validation               SE        Week 4–5 (May 5–12)
     }, 300);
   });
 </script>
+
+<!-- ROI CALCULATOR -->
+<div class="roi-section">
+  <div class="roi-header">
+    <h2>📊 ROI Calculator</h2>
+    <p>Put your team's numbers in. See what Scout returns.</p>
+  </div>
+  <div class="roi-layout">
+
+    <!-- INPUTS -->
+    <div class="roi-inputs">
+      <div>
+        <div class="roi-input-row">
+          <span class="roi-input-name">SE Team Size</span>
+          <span class="roi-val" id="val-ses">45</span>
+        </div>
+        <input class="roi-slider" type="range" min="5" max="200" value="45" id="sl-ses" oninput="calcROI()">
+      </div>
+      <div>
+        <div class="roi-input-row">
+          <span class="roi-input-name">Customer Calls per SE / Week</span>
+          <span class="roi-val" id="val-calls">5</span>
+        </div>
+        <input class="roi-slider" type="range" min="1" max="20" value="5" id="sl-calls" oninput="calcROI()">
+      </div>
+      <div>
+        <div class="roi-input-row">
+          <span class="roi-input-name">Avg Post-Call Admin Time</span>
+          <span class="roi-val" id="val-admin">45 min</span>
+        </div>
+        <input class="roi-slider" type="range" min="20" max="90" value="45" id="sl-admin" oninput="calcROI()">
+      </div>
+      <div>
+        <div class="roi-input-row">
+          <span class="roi-input-name">Avg Deal Size</span>
+          <span class="roi-val" id="val-deal">$500K</span>
+        </div>
+        <input class="roi-slider" type="range" min="50" max="5000" value="500" step="50" id="sl-deal" oninput="calcROI()">
+      </div>
+      <div>
+        <div class="roi-input-row">
+          <span class="roi-input-name">Team Win Rate</span>
+          <span class="roi-val" id="val-win">30%</span>
+        </div>
+        <input class="roi-slider" type="range" min="5" max="70" value="30" id="sl-win" oninput="calcROI()">
+      </div>
+    </div>
+
+    <!-- OUTPUTS -->
+    <div class="roi-outputs">
+      <div class="roi-grid-2">
+        <div class="roi-card">
+          <div class="roi-card-label">Hours Recovered / Year</div>
+          <div class="roi-card-value" id="out-hours">6,825</div>
+          <div class="roi-card-sub">across the SE team</div>
+        </div>
+        <div class="roi-card">
+          <div class="roi-card-label">SE FTE Equivalent</div>
+          <div class="roi-card-value" id="out-fte">3.3</div>
+          <div class="roi-card-sub">effectively added</div>
+        </div>
+        <div class="roi-card">
+          <div class="roi-card-label">Additional Deal Opps</div>
+          <div class="roi-card-value" id="out-deals">91</div>
+          <div class="roi-card-sub">per year in pipeline</div>
+        </div>
+        <div class="roi-card">
+          <div class="roi-card-label">Follow-up Speed</div>
+          <div class="roi-card-value">8 min</div>
+          <div class="roi-card-sub">down from 48+ hrs</div>
+        </div>
+      </div>
+      <div class="roi-card money">
+        <div class="roi-card-label">💰 Revenue Impact</div>
+        <div class="roi-card-value" id="out-revenue">$13.7M</div>
+        <div class="roi-card-sub">additional pipeline unlocked per year</div>
+      </div>
+    </div>
+
+  </div>
+  <p class="roi-footnote">Scout reduces post-call admin from <span id="fn-admin">45</span> min → 8 min per call · 40% of recovered time redirected to customer-facing work · <span id="fn-deals">91</span> additional deal opportunities at <span id="fn-win">30%</span> win rate · 35 avg SE hours per deal</p>
+</div>
 
 <!-- FOOTER -->
 <footer class="site-footer">
