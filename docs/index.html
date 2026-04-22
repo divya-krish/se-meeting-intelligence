@@ -439,6 +439,133 @@
     .fill-blue { background: var(--cf-blue); }
     .fill-red { background: var(--cf-red); }
 
+    /* ─── PERSONA BENEFITS ──────────────────────────── */
+    .personas-section {
+      background: var(--cf-dark);
+      border-bottom: 1px solid var(--cf-border);
+      padding: 40px 32px;
+    }
+
+    .personas-header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .personas-header h2 {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--cf-text);
+      margin-bottom: 8px;
+    }
+
+    .personas-header p {
+      font-size: 14px;
+      color: var(--cf-muted);
+    }
+
+    .personas-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .persona-card {
+      background: var(--cf-card);
+      border: 1px solid var(--cf-border);
+      border-radius: 12px;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .persona-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+
+    .persona-card.sales::before { background: var(--cf-green); }
+    .persona-card.se-leader::before { background: var(--cf-orange); }
+    .persona-card.se-team::before { background: var(--cf-blue); }
+
+    .persona-role {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    .persona-card.sales .persona-role { color: var(--cf-green); }
+    .persona-card.se-leader .persona-role { color: var(--cf-orange); }
+    .persona-card.se-team .persona-role { color: var(--cf-blue); }
+
+    .persona-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--cf-text);
+      margin-bottom: 4px;
+    }
+
+    .persona-name {
+      font-size: 12px;
+      color: var(--cf-muted);
+      margin-bottom: 16px;
+    }
+
+    .persona-headline {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--cf-text);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--cf-border);
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+
+    .persona-benefits {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .persona-benefits li {
+      font-size: 12px;
+      color: var(--cf-muted);
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.5;
+    }
+
+    .persona-benefits li:last-child { border-bottom: none; }
+
+    .benefit-icon { flex-shrink: 0; margin-top: 1px; }
+
+    .persona-stat {
+      margin-top: 16px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .persona-card.sales .persona-stat { background: rgba(39,174,96,0.1); color: var(--cf-green); border: 1px solid rgba(39,174,96,0.25); }
+    .persona-card.se-leader .persona-stat { background: rgba(246,130,31,0.1); color: var(--cf-orange); border: 1px solid rgba(246,130,31,0.25); }
+    .persona-card.se-team .persona-stat { background: rgba(52,152,219,0.1); color: var(--cf-blue); border: 1px solid rgba(52,152,219,0.25); }
+
+    @media (max-width: 900px) {
+      .personas-grid { grid-template-columns: 1fr; }
+    }
+
     /* ─── FOOTER ─────────────────────────────────────── */
     footer {
       text-align: center;
@@ -508,6 +635,69 @@
       <div class="impact-label">Manual CRM Entries</div>
       <div class="impact-sub">Fully automated</div>
     </div>
+  </div>
+</div>
+
+<!-- PERSONA BENEFITS -->
+<div class="personas-section">
+  <div class="personas-header">
+    <h2>Who Benefits — and How</h2>
+    <p>The same tool delivers different value depending on where you sit in the org.</p>
+  </div>
+
+  <div class="personas-grid">
+
+    <!-- SALES LEADERSHIP -->
+    <div class="persona-card sales">
+      <div class="persona-role">Sales Leadership</div>
+      <div class="persona-title">Revenue & Pipeline Impact</div>
+      <div class="persona-name">Area VP Sales perspective</div>
+      <div class="persona-headline">
+        "Every hour an SE saves on admin is an hour they can spend with a customer — directly expanding pipeline capacity without adding headcount."
+      </div>
+      <ul class="persona-benefits">
+        <li><span class="benefit-icon">📈</span>More SE capacity per AE means faster deal velocity and shorter sales cycles</li>
+        <li><span class="benefit-icon">✅</span>100% CRM hygiene — every call logged, every action item captured, no deals lost to admin gaps</li>
+        <li><span class="benefit-icon">⚠️</span>Competitive signals flagged automatically — sales leadership sees Zscaler, Palo Alto, CrowdStrike mentions the moment the call ends</li>
+        <li><span class="benefit-icon">🎯</span>Follow-up emails drafted instantly — customers get a response the same day, not 48 hours later</li>
+      </ul>
+      <div class="persona-stat">~3,500 hours recovered annually across a 20-person SE org</div>
+    </div>
+
+    <!-- SE LEADERSHIP -->
+    <div class="persona-card se-leader">
+      <div class="persona-role">SE Leadership</div>
+      <div class="persona-title">Team Capacity & Metrics</div>
+      <div class="persona-name">VP / Director SE perspective</div>
+      <div class="persona-headline">
+        "This directly improves BUR. Admin time compresses from 16 hours to 3 hours per week — that delta goes straight into customer-facing work."
+      </div>
+      <ul class="persona-benefits">
+        <li><span class="benefit-icon">📊</span>BUR lifts from 54% → 78% without changing AE:SE ratio or headcount</li>
+        <li><span class="benefit-icon">⏱️</span>Internal time drops from 16 hrs → 3 hrs per week per SE</li>
+        <li><span class="benefit-icon">🔁</span>Consistent output quality across the team — junior SEs produce the same structured notes as veterans</li>
+        <li><span class="benefit-icon">🧩</span>Multi-product signals captured automatically — no more missed upsell opportunities buried in call notes</li>
+      </ul>
+      <div class="persona-stat">Equivalent of +1.7 SE headcount — no hire required</div>
+    </div>
+
+    <!-- SE TEAM -->
+    <div class="persona-card se-team">
+      <div class="persona-role">SE Team</div>
+      <div class="persona-title">Day-to-Day Workflow</div>
+      <div class="persona-name">Individual SE perspective</div>
+      <div class="persona-headline">
+        "I used to spend 45 minutes after every call writing notes. Now I paste the transcript, review the output, and I'm done in 8 minutes."
+      </div>
+      <ul class="persona-benefits">
+        <li><span class="benefit-icon">⚡</span>Paste transcript → get CRM note, follow-up email, and action items in under 30 seconds</li>
+        <li><span class="benefit-icon">📋</span>Salesforce-ready activity note — copy, paste, done. No blank text box staring back at you</li>
+        <li><span class="benefit-icon">📧</span>Follow-up email drafted with the right context — just review, personalize, and send</li>
+        <li><span class="benefit-icon">🧠</span>Nothing falls through the cracks — action items, owners, and due dates extracted from every call</li>
+      </ul>
+      <div class="persona-stat">43 minutes saved per call · 5 calls/week = 3.5 hrs back every week</div>
+    </div>
+
   </div>
 </div>
 
