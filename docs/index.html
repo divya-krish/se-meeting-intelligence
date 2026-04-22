@@ -9,19 +9,29 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --cf-orange: #F6821F;
-      --cf-orange-light: #FFA04D;
-      --cf-dark: #1A1A2E;
-      --cf-darker: #0F0F1A;
-      --cf-card: #16213E;
-      --cf-card-hover: #1A2850;
-      --cf-border: #2A3A5C;
-      --cf-text: #E8EAF0;
-      --cf-muted: #8892A4;
-      --cf-green: #27AE60;
-      --cf-red: #E74C3C;
-      --cf-yellow: #F39C12;
-      --cf-blue: #3498DB;
+      /* ── Cloudflare exact brand palette (blog.cloudflare.com/dark-mode) ── */
+      --cf-orange:       #f38020;   /* Cloudflare Tango — primary brand orange  */
+      --cf-orange-light: #f4a15d;   /* orange scale .6                          */
+      --cf-orange-dim:   rgba(243,128,32,0.12);
+
+      /* Gray scale — slight blue tint, gray.0 chosen over pure black          */
+      --cf-dark:         #1d1f20;   /* gray.0  — page background                */
+      --cf-darker:       #141516;   /* below gray.0 — deepest surfaces          */
+      --cf-card:         #282b2c;   /* between gray.0 and gray.1 — card bg      */
+      --cf-card-hover:   #36393a;   /* gray.1  — hover / elevated surface       */
+      --cf-border:       rgba(78,82,85,0.45); /* gray.2 at 45%                  */
+
+      /* Text                                                                    */
+      --cf-text:         #f7f7f8;   /* gray.9  — primary text                   */
+      --cf-muted:        #92979b;   /* gray.5  — secondary / label text         */
+
+      /* Semantic colors from Cloudflare scale                                  */
+      --cf-green:        #46a46c;   /* green.5                                  */
+      --cf-red:          #da304c;   /* red.4                                    */
+      --cf-yellow:       #f4a929;   /* gold.6                                   */
+      --cf-blue:         #479ad1;   /* blue.5                                   */
+      --cf-blue-dark:    #163d57;   /* blue.1  — used in gradients              */
+      --cf-indigo:       #6373b6;   /* indigo.4                                 */
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -80,7 +90,7 @@
 
     /* ─── HERO ─────────────────────────────────────── */
     .hero {
-      background: linear-gradient(135deg, var(--cf-dark) 0%, #0D1B3E 100%);
+      background: linear-gradient(135deg, var(--cf-dark) 0%, var(--cf-blue-dark) 100%);
       padding: 24px 32px 20px;
       border-bottom: 1px solid var(--cf-border);
       text-align: center;
@@ -106,7 +116,7 @@
 
     .scout-logo-icon {
       flex-shrink: 0;
-      filter: drop-shadow(0 0 12px rgba(244,129,32,0.45));
+      filter: drop-shadow(0 0 12px rgba(243,128,32,0.45));
     }
 
     .scout-logo-text {
@@ -866,7 +876,7 @@
 
     /* ─── ROI CALCULATOR ─────────────────────────────── */
     .roi-section {
-      background: linear-gradient(135deg, #0a1628 0%, var(--cf-dark) 100%);
+      background: linear-gradient(135deg, var(--cf-blue-dark) 0%, var(--cf-dark) 100%);
       border-top: 1px solid var(--cf-border);
       padding: 44px 32px 52px;
     }
@@ -992,18 +1002,18 @@
   <!-- SCOUT LOGO -->
   <div class="scout-logo">
     <svg class="scout-logo-icon" width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="36" cy="36" r="34" stroke="#F48120" stroke-width="1.5" fill="#0d0d0d"/>
+      <circle cx="36" cy="36" r="34" stroke="#f38020" stroke-width="1.5" fill="#141516"/>
       <circle cx="36" cy="36" r="10" stroke="rgba(255,255,255,0.18)" stroke-width="1" fill="none"/>
       <circle cx="36" cy="36" r="19" stroke="rgba(255,255,255,0.12)" stroke-width="1" fill="none"/>
       <circle cx="36" cy="36" r="28" stroke="rgba(255,255,255,0.07)" stroke-width="1" fill="none"/>
       <line x1="36" y1="4"  x2="36" y2="68" stroke="rgba(255,255,255,0.08)" stroke-width="0.75"/>
       <line x1="4"  y1="36" x2="68" y2="36" stroke="rgba(255,255,255,0.08)" stroke-width="0.75"/>
-      <path d="M36 36 L60 14 A28 28 0 0 1 64 36 Z" fill="rgba(244,129,32,0.18)"/>
-      <line x1="36" y1="36" x2="60" y2="14" stroke="#F48120" stroke-width="1.75" stroke-linecap="round"/>
-      <circle cx="36" cy="36" r="3" fill="#F48120"/>
+      <path d="M36 36 L60 14 A28 28 0 0 1 64 36 Z" fill="rgba(243,128,32,0.18)"/>
+      <line x1="36" y1="36" x2="60" y2="14" stroke="#f38020" stroke-width="1.75" stroke-linecap="round"/>
+      <circle cx="36" cy="36" r="3" fill="#f38020"/>
       <circle cx="36" cy="36" r="1.2" fill="#fff"/>
-      <circle cx="55" cy="18" r="2.5" fill="#F48120" opacity="0.9"/>
-      <circle cx="55" cy="18" r="4.5" fill="none" stroke="#F48120" stroke-width="0.75" opacity="0.4"/>
+      <circle cx="55" cy="18" r="2.5" fill="#f38020" opacity="0.9"/>
+      <circle cx="55" cy="18" r="4.5" fill="none" stroke="#f38020" stroke-width="0.75" opacity="0.4"/>
     </svg>
     <div class="scout-logo-text">
       <span class="scout-wordmark">Scout</span>
@@ -1125,8 +1135,8 @@ SE: I'll have our team put together a TCO comparison — apples to apples on wha
     <svg class="arrow-svg" width="90" height="54" viewBox="0 0 90 54" fill="none" xmlns="http://www.w3.org/2000/svg">
       <!-- Arrow body + head -->
       <polygon points="0,14 62,14 62,0 90,27 62,54 62,40 0,40"
-               fill="rgba(244,129,32,0.12)"
-               stroke="#F48120"
+               fill="rgba(243,128,32,0.12)"
+               stroke="#f38020"
                stroke-width="1.75"
                stroke-linejoin="round"/>
       <!-- Scout label inside arrow -->
@@ -1551,7 +1561,7 @@ POC / Technical validation               SE        Week 4–5 (May 5–12)
     ['sl-ses','sl-calls','sl-admin','sl-deal','sl-win'].forEach(id => {
       const sl = document.getElementById(id);
       const pct = ((sl.value - sl.min) / (sl.max - sl.min)) * 100;
-      sl.style.background = `linear-gradient(to right,#F48120 0%,#F48120 ${pct}%,rgba(255,255,255,0.1) ${pct}%)`;
+      sl.style.background = `linear-gradient(to right,#f38020 0%,#f38020 ${pct}%,rgba(255,255,255,0.1) ${pct}%)`;
     });
 
     // Update labels
