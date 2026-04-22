@@ -176,8 +176,8 @@
       margin: 0 auto;
       padding: 16px 32px 0;
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
+      grid-template-columns: 1fr 70px 1fr;
+      gap: 12px;
       align-items: stretch;
     }
 
@@ -663,6 +663,127 @@
       .personas-grid { grid-template-columns: 1fr; }
     }
 
+    /* ─── UPLOAD BUTTON ─────────────────────────────── */
+    .upload-btn {
+      background: rgba(246,130,31,0.15);
+      border: 1px solid rgba(246,130,31,0.4);
+      color: var(--cf-orange);
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .upload-btn:hover { background: rgba(246,130,31,0.28); }
+
+    /* ─── SCOUT ARROW ────────────────────────────────── */
+    .scout-arrow-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 0 4px;
+    }
+
+    .scout-arrow-icon {
+      font-size: 48px;
+      color: #FFFFFF;
+      line-height: 1;
+      text-shadow: 0 0 20px rgba(246,130,31,0.5);
+    }
+
+    .scout-arrow-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--cf-orange);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    /* ─── GANTT CHART ────────────────────────────────── */
+    .gantt-wrap { font-size: 11px; }
+
+    .gantt-legend {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 10px;
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .gl-se    { color: var(--cf-orange); }
+    .gl-ae    { color: var(--cf-blue); }
+    .gl-cust  { color: var(--cf-green); }
+
+    .gantt-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+
+    .gantt-table th {
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      color: var(--cf-muted);
+      padding: 4px 3px;
+      text-align: center;
+      border-bottom: 1px solid var(--cf-border);
+      font-weight: 600;
+    }
+
+    .gantt-table th.task-head {
+      text-align: left;
+      width: 36%;
+    }
+
+    .gantt-table td {
+      padding: 3px;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+      vertical-align: middle;
+    }
+
+    .gantt-table td.task-cell {
+      padding: 4px 3px;
+      font-size: 10px;
+      color: var(--cf-text);
+      line-height: 1.3;
+    }
+
+    .g-owner {
+      display: inline-block;
+      font-size: 8px;
+      font-weight: 800;
+      padding: 1px 5px;
+      border-radius: 8px;
+      margin-right: 4px;
+      vertical-align: middle;
+    }
+
+    .g-se   { background: rgba(246,130,31,0.2); color: var(--cf-orange); border: 1px solid rgba(246,130,31,0.4); }
+    .g-ae   { background: rgba(52,152,219,0.2);  color: var(--cf-blue);   border: 1px solid rgba(52,152,219,0.4); }
+    .g-cust { background: rgba(39,174,96,0.2);   color: var(--cf-green);  border: 1px solid rgba(39,174,96,0.4); }
+
+    .gbar {
+      height: 14px;
+      border-radius: 4px;
+      width: 90%;
+      margin: 0 auto;
+    }
+
+    .gbar-se   { background: rgba(246,130,31,0.55); }
+    .gbar-ae   { background: rgba(52,152,219,0.55); }
+    .gbar-cust { background: rgba(39,174,96,0.55);  }
+
+    .gcell-decision {
+      text-align: center;
+      font-size: 9px;
+      color: var(--cf-red);
+      font-weight: 700;
+    }
+
     /* ─── FOOTER ─────────────────────────────────────── */
     footer {
       text-align: center;
@@ -703,9 +824,9 @@
 
 <!-- HERO -->
 <div class="hero">
-  <h1>Scout — <span style="color: var(--cf-orange); font-weight: 400;">Scouting deal intelligence from every conversation</span></h1>
+  <h1>Scout — <span style="color: var(--cf-orange); font-weight: 400; font-size: 0.6em;">scouting deal intelligence from every conversation</span></h1>
   <p>Enterprise SEs lose 15–20 hours a week to documentation. Scout turns any transcript into a full CRM package in 60 seconds.</p>
-  <p style="color: var(--cf-orange); font-size:13px; font-weight:600; margin-top:-8px; margin-bottom:18px;">7,000 hours recovered per year · the equivalent of 3.4 additional SEs — without a single hire.</p>
+  <p style="color: var(--cf-orange); font-size:13px; font-weight:600; margin-top:-8px; margin-bottom:18px;">7,000 hours recovered per year · the equivalent of 3.4 additional SEs — without an additional headcount.</p>
 
   <!-- ROW 1: Before → After transformations -->
   <div class="hero-metrics">
@@ -756,7 +877,8 @@
     <div class="panel-header">
       <div class="panel-title">
         📄 Raw Call Transcript
-        <span class="panel-badge badge-raw">Input</span>
+        <label class="upload-btn" for="fileUpload" title="Upload your transcript file">⬆ Upload Transcript</label>
+        <input type="file" id="fileUpload" accept=".txt,.md,.vtt,.srt,.doc,.docx" style="display:none" onchange="loadTranscript(event)">
       </div>
       <span style="font-size:11px; color: var(--cf-muted);">Acme Financial · Apr 14, 2026 · 47 min</span>
     </div>
@@ -811,6 +933,12 @@ SE: I'll have our team put together a TCO comparison — apples to apples on wha
       <span>👥 Participants: 5</span>
       <span>🤖 AI processing time: ~8 sec</span>
     </div>
+  </div>
+
+  <!-- MIDDLE: SCOUT ARROW -->
+  <div class="scout-arrow-col">
+    <div class="scout-arrow-icon">→</div>
+    <div class="scout-arrow-label">Scout</div>
   </div>
 
   <!-- RIGHT: STRUCTURED OUTPUT -->
@@ -869,56 +997,87 @@ SE: I'll have our team put together a TCO comparison — apples to apples on wha
       </div>
     </div>
 
-    <!-- ACTIONS TAB -->
+    <!-- ACTIONS TAB — GANTT -->
     <div class="tab-content" id="tab-actions">
-      <div class="action-item">
-        <span class="action-owner owner-se">SE</span>
-        <div>
-          <div class="action-text">Coordinate technical deep-dive session with Tom's infrastructure team</div>
-          <div class="action-due">📅 Within 2 weeks</div>
+      <div class="gantt-wrap">
+        <div class="gantt-legend">
+          <span class="gl-se">■ SE</span>
+          <span class="gl-ae">■ AE</span>
+          <span class="gl-cust">■ Customer</span>
         </div>
-      </div>
-      <div class="action-item">
-        <span class="action-owner owner-se">SE</span>
-        <div>
-          <div class="action-text">Have Zero Trust architect prepare Zscaler migration analysis for Acme's architecture</div>
-          <div class="action-due">📅 Before POC kick-off</div>
-        </div>
-      </div>
-      <div class="action-item">
-        <span class="action-owner owner-se">SE</span>
-        <div>
-          <div class="action-text">Scope AI Gateway deployment — coordinate with Lisa Park on AI financial advisor architecture</div>
-          <div class="action-due">📅 In parallel with ZT scope</div>
-        </div>
-      </div>
-      <div class="action-item">
-        <span class="action-owner owner-ae">AE</span>
-        <div>
-          <div class="action-text">Send POC framework document to customer</div>
-          <div class="action-due">📅 End of this week</div>
-        </div>
-      </div>
-      <div class="action-item">
-        <span class="action-owner owner-ae">AE</span>
-        <div>
-          <div class="action-text">Send calendar invite for technical deep-dive</div>
-          <div class="action-due">📅 Today</div>
-        </div>
-      </div>
-      <div class="action-item">
-        <span class="action-owner owner-se">SE</span>
-        <div>
-          <div class="action-text">Prepare TCO comparison: Cloudflare vs. Zscaler + Palo Alto at 15,000 seats</div>
-          <div class="action-due">📅 Before technical deep-dive</div>
-        </div>
-      </div>
-      <div class="action-item">
-        <span class="action-owner owner-customer">Customer</span>
-        <div>
-          <div class="action-text">Share current network topology and identity stack for ZT migration analysis</div>
-          <div class="action-due">📅 At technical deep-dive</div>
-        </div>
+        <table class="gantt-table">
+          <thead>
+            <tr>
+              <th class="task-head">Action Item</th>
+              <th>Wk 1<br>Apr 14</th>
+              <th>Wk 2<br>Apr 21</th>
+              <th>Wk 3<br>Apr 28</th>
+              <th>Wk 4<br>May 5</th>
+              <th>Wk 5<br>May 12</th>
+              <th>🎯 Jun 1</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="task-cell"><span class="g-owner g-ae">AE</span>Send calendar invite</td>
+              <td><div class="gbar gbar-ae"></div></td>
+              <td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            <tr>
+              <td class="task-cell"><span class="g-owner g-ae">AE</span>Send POC framework doc</td>
+              <td><div class="gbar gbar-ae"></div></td>
+              <td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            <tr>
+              <td class="task-cell"><span class="g-owner g-se">SE</span>Prepare TCO comparison</td>
+              <td><div class="gbar gbar-se"></div></td>
+              <td><div class="gbar gbar-se"></div></td>
+              <td></td><td></td><td></td><td></td>
+            </tr>
+            <tr>
+              <td class="task-cell"><span class="g-owner g-se">SE</span>Technical deep-dive</td>
+              <td></td>
+              <td><div class="gbar gbar-se"></div></td>
+              <td><div class="gbar gbar-se"></div></td>
+              <td></td><td></td><td></td>
+            </tr>
+            <tr>
+              <td class="task-cell"><span class="g-owner g-cust">CUST</span>Share network topology</td>
+              <td></td>
+              <td><div class="gbar gbar-cust"></div></td>
+              <td><div class="gbar gbar-cust"></div></td>
+              <td></td><td></td><td></td>
+            </tr>
+            <tr>
+              <td class="task-cell"><span class="g-owner g-se">SE</span>ZT migration analysis</td>
+              <td></td>
+              <td><div class="gbar gbar-se"></div></td>
+              <td><div class="gbar gbar-se"></div></td>
+              <td><div class="gbar gbar-se"></div></td>
+              <td></td><td></td>
+            </tr>
+            <tr>
+              <td class="task-cell"><span class="g-owner g-se">SE</span>Scope AI Gateway</td>
+              <td></td>
+              <td><div class="gbar gbar-se"></div></td>
+              <td><div class="gbar gbar-se"></div></td>
+              <td><div class="gbar gbar-se"></div></td>
+              <td></td><td></td>
+            </tr>
+            <tr>
+              <td class="task-cell"><span class="g-owner g-se">SE</span>POC / Validation</td>
+              <td></td><td></td><td></td>
+              <td><div class="gbar gbar-se"></div></td>
+              <td><div class="gbar gbar-se"></div></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td class="task-cell" style="color:var(--cf-red); font-weight:700;">🎯 Decision deadline</td>
+              <td></td><td></td><td></td><td></td><td></td>
+              <td class="gcell-decision">Jun 1</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
 
@@ -1083,6 +1242,16 @@ Cloudflare Solutions Engineering</div>
     document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
     event.target.classList.add('active');
     document.getElementById('tab-' + tabName).classList.add('active');
+  }
+
+  function loadTranscript(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      document.getElementById('transcriptText').textContent = e.target.result;
+    };
+    reader.readAsText(file);
   }
 
   function copyText(elementId, btn) {
