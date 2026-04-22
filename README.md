@@ -2,7 +2,7 @@
 
 **Turn a 47-minute discovery call transcript into a complete CRM package in under 30 seconds.**
 
-Built by a Solutions Engineer, for Solutions Engineers. Uses Claude AI (Anthropic) to extract structured intelligence from raw call transcripts — no templates, no manual copy-paste, no forgotten action items.
+Built by a Ex-Solutions Engineer, for Solutions Engineers. Uses Claude AI (Anthropic) to extract structured intelligence from raw call transcripts — no templates, no manual copy-paste, no forgotten action items.
 
 🔗 **[Live Demo →](https://divya-krish.github.io/se-meeting-intelligence)**
 
