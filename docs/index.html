@@ -408,6 +408,59 @@
 
     .metric-label { font-size: 12px; color: var(--cf-muted); }
 
+    /* ─── IMPACT FLIP CARDS ─────────────────────────── */
+    .impact-flip-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--cf-border);
+      border-radius: 10px;
+      padding: 14px 12px;
+      text-align: center;
+    }
+
+    .highlight-card {
+      border-color: rgba(246,130,31,0.35);
+      background: rgba(246,130,31,0.06);
+    }
+
+    .flip-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--cf-muted);
+      margin-bottom: 8px;
+    }
+
+    .flip-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .flip-before {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--cf-red);
+    }
+
+    .flip-arrow {
+      font-size: 14px;
+      color: var(--cf-muted);
+    }
+
+    .flip-after {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--cf-green);
+    }
+
+    .flip-savings {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--cf-orange);
+    }
+
     .impact-table {
       width: 100%;
       border-collapse: collapse;
@@ -602,8 +655,7 @@
     <div class="logo-icon">⚡</div>
     <div>
       <div>SE Meeting Intelligence</div>
-      <div class="logo-sub">Powered by Claude AI · Built for Cloudflare SEs</div>
-      <div class="logo-attribution">Built by Divya Krishnamurthi · <a href="https://www.anthropic.com/claude" target="_blank">Claude AI</a> · <a href="https://github.com/divya-krish/se-meeting-intelligence" target="_blank">View on GitHub</a></div>
+      <div class="logo-sub">Built by Divya Krishnamurthi for Cloudflare SEs using Claude AI · <a href="https://github.com/divya-krish/se-meeting-intelligence" target="_blank" style="color: var(--cf-orange); text-decoration: none;">View on GitHub</a></div>
     </div>
   </div>
   <div class="header-badge">Live Demo</div>
@@ -612,7 +664,7 @@
 <!-- HERO -->
 <div class="hero">
   <h1>From Transcript to CRM in 60 Seconds</h1>
-  <p>Enterprise SEs spend 15–20 hours per week on internal documentation.<br>This tool compresses that to minutes — expanding customer-facing capacity without adding headcount.</p>
+  <p>Enterprise SEs spend 15–20 hours per week on internal documentation.<br>This tool compresses that to minutes — more customer time, zero added headcount.</p>
 
   <div class="impact-bar">
     <div class="impact-card">
@@ -720,6 +772,7 @@ SE: I'll have our team put together a TCO comparison — apples to apples on wha
       <div class="tab" onclick="switchTab('technical')">⚙️ Technical</div>
       <div class="tab" onclick="switchTab('crm')">📊 CRM Note</div>
       <div class="tab" onclick="switchTab('email')">📧 Email Draft</div>
+      <div class="tab" onclick="switchTab('impact')">📈 Impact</div>
     </div>
 
     <!-- SUMMARY TAB -->
@@ -897,59 +950,71 @@ Divya
 Cloudflare Solutions Engineering</div>
       <button class="copy-btn" onclick="copyText('emailText', this)" style="margin-top: 10px;">📋 Copy to Clipboard</button>
     </div>
-  </div>
 
-  <!-- BOTTOM: IMPACT METRICS -->
-  <div class="metrics-section">
-    <div class="metrics-title">📈 SE Org Impact — Before vs. After</div>
-    <table class="impact-table">
-      <thead>
-        <tr>
-          <th>Metric</th>
-          <th class="col-before">⏱️ Without Tool</th>
-          <th class="col-after">✅ With Tool</th>
-          <th class="col-delta">Delta</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Post-call documentation time</td>
-          <td class="col-before">45 min / call</td>
-          <td class="col-after">8 min / call</td>
-          <td class="col-delta">−37 min</td>
-        </tr>
-        <tr>
-          <td>Internal admin time / week</td>
-          <td class="col-before">16 hrs</td>
-          <td class="col-after">3 hrs</td>
-          <td class="col-delta">−13 hrs</td>
-        </tr>
-        <tr>
-          <td>BUR (Billing Utilization Rate)</td>
-          <td class="col-before">54%</td>
-          <td class="col-after">78%</td>
-          <td class="col-delta">+24 pts</td>
-        </tr>
-        <tr>
-          <td>PCU (Pipeline Coverage Utilization)</td>
-          <td class="col-before">60%</td>
-          <td class="col-after">80%</td>
-          <td class="col-delta">+20 pts</td>
-        </tr>
-        <tr>
-          <td>SE Load</td>
-          <td class="col-before">120%</td>
-          <td class="col-after">100%</td>
-          <td class="col-delta">Normalized</td>
-        </tr>
-        <tr>
-          <td>Hours recovered / year (20 SEs)</td>
-          <td class="col-before">—</td>
-          <td class="col-after">~3,500 hrs</td>
-          <td class="col-delta">≈ +1.7 SE headcount</td>
-        </tr>
-      </tbody>
-    </table>
+    <!-- IMPACT TAB -->
+    <div class="tab-content" id="tab-impact">
+      <p style="font-size:11px; color: var(--cf-muted); margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.5px;">SE Org Impact — Per SE, Per Week</p>
+
+      <!-- Big 3 transformation cards -->
+      <div style="display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 16px;">
+        <div class="impact-flip-card">
+          <div class="flip-label">Post-call docs</div>
+          <div class="flip-row">
+            <span class="flip-before">45 min</span>
+            <span class="flip-arrow">→</span>
+            <span class="flip-after">8 min</span>
+          </div>
+          <div class="flip-savings">saves 37 min / call</div>
+        </div>
+        <div class="impact-flip-card">
+          <div class="flip-label">Admin time / week</div>
+          <div class="flip-row">
+            <span class="flip-before">16 hrs</span>
+            <span class="flip-arrow">→</span>
+            <span class="flip-after">3 hrs</span>
+          </div>
+          <div class="flip-savings">saves 13 hrs / week</div>
+        </div>
+        <div class="impact-flip-card">
+          <div class="flip-label">BUR (target 65%)</div>
+          <div class="flip-row">
+            <span class="flip-before">54%</span>
+            <span class="flip-arrow">→</span>
+            <span class="flip-after">78%</span>
+          </div>
+          <div class="flip-savings">+24 pts utilization</div>
+        </div>
+      </div>
+
+      <!-- Secondary metrics row -->
+      <div style="display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 16px;">
+        <div class="impact-flip-card">
+          <div class="flip-label">PCU (target 75%)</div>
+          <div class="flip-row">
+            <span class="flip-before">60%</span>
+            <span class="flip-arrow">→</span>
+            <span class="flip-after">80%</span>
+          </div>
+          <div class="flip-savings">+20 pts coverage</div>
+        </div>
+        <div class="impact-flip-card">
+          <div class="flip-label">SE Load</div>
+          <div class="flip-row">
+            <span class="flip-before">120%</span>
+            <span class="flip-arrow">→</span>
+            <span class="flip-after">100%</span>
+          </div>
+          <div class="flip-savings">normalized load</div>
+        </div>
+        <div class="impact-flip-card highlight-card">
+          <div class="flip-label">Org-wide (20 SEs / yr)</div>
+          <div class="flip-row" style="justify-content:center;">
+            <span class="flip-after" style="font-size:22px;">~3,500 hrs</span>
+          </div>
+          <div class="flip-savings">≈ +1.7 SE headcount — no hire</div>
+        </div>
+      </div>
+    </div>
   </div>
 
 </div>
