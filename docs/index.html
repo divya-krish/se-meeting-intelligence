@@ -690,11 +690,38 @@
       margin-bottom: 28px;
     }
 
+    .personas-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--cf-orange);
+      margin-bottom: 10px;
+    }
+
+    .personas-eyebrow::before,
+    .personas-eyebrow::after {
+      content: '';
+      display: inline-block;
+      width: 28px;
+      height: 1px;
+      background: var(--cf-orange);
+      opacity: 0.5;
+    }
+
     .personas-header h2 {
       font-size: 22px;
       font-weight: 800;
       color: var(--cf-text);
       margin-bottom: 8px;
+    }
+
+    .personas-header h2 em {
+      font-style: normal;
+      color: var(--cf-orange);
     }
 
     .personas-header p {
@@ -1532,7 +1559,8 @@ Cloudflare Solutions Engineering</div>
 <!-- PERSONA BENEFITS -->
 <div class="personas-section">
   <div class="personas-header">
-    <h2>Who Benefits — and How</h2>
+    <div class="personas-eyebrow">Built for SE Orgs</div>
+    <h2>Who <em>Benefits</em> — and How</h2>
     <p>Scout delivers different value depending on where you sit in the org.</p>
   </div>
 
