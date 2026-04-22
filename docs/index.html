@@ -713,13 +713,60 @@
       justify-content: center;
       gap: 6px;
       padding: 0 4px;
+      cursor: pointer;
+      transition: transform 0.15s ease;
+      user-select: none;
     }
 
-    .scout-arrow-icon {
-      font-size: 48px;
-      color: #FFFFFF;
-      line-height: 1;
-      text-shadow: 0 0 20px rgba(246,130,31,0.5);
+    .scout-arrow-col:hover .scout-arrow-icon {
+      text-shadow: 0 0 32px rgba(246,130,31,0.95), 0 0 8px rgba(246,130,31,0.6);
+      color: var(--cf-orange);
+    }
+
+    .scout-arrow-col:hover .scout-arrow-label {
+      color: #fff;
+    }
+
+    .scout-arrow-col:active {
+      transform: scale(0.93);
+    }
+
+    .scout-arrow-col.processing .scout-arrow-icon {
+      animation: pulse-arrow 0.7s ease-in-out infinite alternate;
+      color: var(--cf-orange);
+    }
+
+    @keyframes pulse-arrow {
+      from { text-shadow: 0 0 12px rgba(246,130,31,0.5); }
+      to   { text-shadow: 0 0 40px rgba(246,130,31,1), 0 0 10px rgba(246,130,31,0.8); }
+    }
+
+    /* Output panel loading state */
+    .output-loading {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      gap: 16px;
+      color: var(--cf-muted);
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+    }
+
+    .output-loading.visible { display: flex; }
+
+    .spinner {
+      width: 32px;
+      height: 32px;
+      border: 3px solid rgba(246,130,31,0.2);
+      border-top-color: var(--cf-orange);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
     }
 
     .scout-arrow-label {
@@ -984,7 +1031,7 @@ SE: I'll have our team put together a TCO comparison — apples to apples on wha
   </div>
 
   <!-- MIDDLE: SCOUT ARROW -->
-  <div class="scout-arrow-col">
+  <div class="scout-arrow-col" id="scoutArrow" onclick="runScout()" title="Click to process transcript">
     <div class="scout-arrow-icon">→</div>
     <div class="scout-arrow-label">Scout</div>
   </div>
@@ -996,9 +1043,16 @@ SE: I'll have our team put together a TCO comparison — apples to apples on wha
         🤖 AI-Structured Output
         <span class="panel-badge badge-ai">Claude AI</span>
       </div>
-      <span class="panel-badge badge-live">✓ Generated</span>
+      <span id="generatedBadge" class="panel-badge badge-live">✓ Generated</span>
     </div>
 
+    <!-- Loading overlay -->
+    <div class="output-loading" id="outputLoading">
+      <div class="spinner"></div>
+      <span>Processing with Claude AI<span id="loadingDots"></span></span>
+    </div>
+
+    <div id="outputBody">
     <div class="output-tabs">
       <div class="tab active" onclick="switchTab('summary')">📝 Summary</div>
       <div class="tab" onclick="switchTab('actions')">✅ Actions</div>
@@ -1221,6 +1275,7 @@ Divya
 Cloudflare Solutions Engineering</div>
     </div>
 
+    </div><!-- /outputBody -->
   </div>
 
 </div>
@@ -1289,6 +1344,43 @@ Cloudflare Solutions Engineering</div>
 </div>
 
 <script>
+  function runScout() {
+    const arrow = document.getElementById('scoutArrow');
+    const loading = document.getElementById('outputLoading');
+    const body = document.getElementById('outputBody');
+    const badge = document.getElementById('generatedBadge');
+    const dotsEl = document.getElementById('loadingDots');
+
+    // Don't double-trigger
+    if (arrow.classList.contains('processing')) return;
+
+    // Start processing state
+    arrow.classList.add('processing');
+    body.style.display = 'none';
+    badge.style.display = 'none';
+    loading.classList.add('visible');
+
+    // Animate dots
+    let dotCount = 0;
+    const dotInterval = setInterval(() => {
+      dotCount = (dotCount + 1) % 4;
+      dotsEl.textContent = '.'.repeat(dotCount);
+    }, 400);
+
+    // Simulate Claude processing (~2.5s)
+    setTimeout(() => {
+      clearInterval(dotInterval);
+      loading.classList.remove('visible');
+      body.style.display = '';
+      badge.style.display = '';
+      arrow.classList.remove('processing');
+
+      // Flash the badge to signal completion
+      badge.style.background = 'rgba(72,187,120,0.35)';
+      setTimeout(() => { badge.style.background = ''; }, 800);
+    }, 2500);
+  }
+
   function switchTab(tabName) {
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
     document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
