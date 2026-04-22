@@ -408,50 +408,38 @@
 
     .metric-label { font-size: 12px; color: var(--cf-muted); }
 
-    .bur-section {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
+    .impact-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
     }
 
-    .bur-card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid var(--cf-border);
-      border-radius: 10px;
-      padding: 16px;
+    .impact-table thead tr {
+      background: rgba(255,255,255,0.04);
     }
 
-    .bur-title { font-size: 13px; font-weight: 700; margin-bottom: 12px; }
-
-    .progress-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 8px;
+    .impact-table th {
+      padding: 10px 16px;
+      text-align: left;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--cf-muted);
+      border-bottom: 1px solid var(--cf-border);
     }
 
-    .progress-label { font-size: 12px; color: var(--cf-muted); width: 120px; flex-shrink: 0; }
-
-    .progress-bar {
-      flex: 1;
-      height: 8px;
-      background: rgba(255,255,255,0.08);
-      border-radius: 4px;
-      overflow: hidden;
+    .impact-table td {
+      padding: 10px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      color: var(--cf-text);
     }
 
-    .progress-fill {
-      height: 100%;
-      border-radius: 4px;
-      transition: width 1.5s ease;
-    }
+    .impact-table tbody tr:last-child td { border-bottom: none; }
+    .impact-table tbody tr:hover { background: rgba(255,255,255,0.02); }
 
-    .progress-value { font-size: 12px; font-weight: 700; width: 40px; text-align: right; }
-
-    .fill-orange { background: var(--cf-orange); }
-    .fill-green { background: var(--cf-green); }
-    .fill-blue { background: var(--cf-blue); }
-    .fill-red { background: var(--cf-red); }
+    .col-before { color: var(--cf-red) !important; }
+    .col-after  { color: var(--cf-green) !important; font-weight: 600; }
+    .col-delta  { color: var(--cf-orange) !important; font-weight: 700; }
 
     /* ─── PERSONA BENEFITS ──────────────────────────── */
     .personas-section {
@@ -613,9 +601,9 @@
   <div class="logo">
     <div class="logo-icon">⚡</div>
     <div>
-      <div class="logo-attribution">Built by Divya Krishnamurthi · Powered by <a href="https://www.anthropic.com/claude" target="_blank">Claude AI</a> · <a href="https://github.com/divya-krish/se-meeting-intelligence" target="_blank">View on GitHub</a></div>
       <div>SE Meeting Intelligence</div>
       <div class="logo-sub">Powered by Claude AI · Built for Cloudflare SEs</div>
+      <div class="logo-attribution">Built by Divya Krishnamurthi · <a href="https://www.anthropic.com/claude" target="_blank">Claude AI</a> · <a href="https://github.com/divya-krish/se-meeting-intelligence" target="_blank">View on GitHub</a></div>
     </div>
   </div>
   <div class="header-badge">Live Demo</div>
@@ -624,10 +612,7 @@
 <!-- HERO -->
 <div class="hero">
   <h1>From Transcript to CRM in 60 Seconds</h1>
-  <p>
-    Enterprise SEs spend 15–20 hours per week on internal documentation.
-    This tool compresses that to minutes — extending customer-facing capacity without adding headcount.
-  </p>
+  <p>Enterprise SEs spend 15–20 hours per week on internal documentation.<br>This tool compresses that to minutes — expanding customer-facing capacity without adding headcount.</p>
 
   <div class="impact-bar">
     <div class="impact-card">
@@ -916,76 +901,55 @@ Cloudflare Solutions Engineering</div>
 
   <!-- BOTTOM: IMPACT METRICS -->
   <div class="metrics-section">
-    <div class="metrics-title">📈 SE Org Impact — What This Tool Changes</div>
-
-    <div class="metrics-grid">
-      <div class="metric-card">
-        <div class="metric-value" style="color: var(--cf-orange);">43 min</div>
-        <div class="metric-label">Saved per call</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-value" style="color: var(--cf-green);">~15 hrs</div>
-        <div class="metric-label">Saved per SE per week</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-value" style="color: var(--cf-blue);">65% → 78%</div>
-        <div class="metric-label">BUR improvement</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-value" style="color: var(--cf-orange);">8 hrs → 3 hrs</div>
-        <div class="metric-label">Internal time / week</div>
-      </div>
-    </div>
-
-    <div class="bur-section">
-      <div class="bur-card">
-        <div class="bur-title">⏱️ Before: Without SE Meeting Intelligence</div>
-        <div class="progress-row">
-          <div class="progress-label">BUR (target 65%)</div>
-          <div class="progress-bar"><div class="progress-fill fill-red" style="width: 54%;"></div></div>
-          <div class="progress-value" style="color: var(--cf-red);">54%</div>
-        </div>
-        <div class="progress-row">
-          <div class="progress-label">PCU (target 75%)</div>
-          <div class="progress-bar"><div class="progress-fill fill-red" style="width: 60%;"></div></div>
-          <div class="progress-value" style="color: var(--cf-red);">60%</div>
-        </div>
-        <div class="progress-row">
-          <div class="progress-label">Internal Time</div>
-          <div class="progress-bar"><div class="progress-fill fill-red" style="width: 80%;"></div></div>
-          <div class="progress-value" style="color: var(--cf-red);">16 hrs</div>
-        </div>
-        <div class="progress-row">
-          <div class="progress-label">Load</div>
-          <div class="progress-bar"><div class="progress-fill fill-red" style="width: 120%;"></div></div>
-          <div class="progress-value" style="color: var(--cf-red);">120%</div>
-        </div>
-      </div>
-
-      <div class="bur-card">
-        <div class="bur-title">✅ After: With SE Meeting Intelligence</div>
-        <div class="progress-row">
-          <div class="progress-label">BUR (target 65%)</div>
-          <div class="progress-bar"><div class="progress-fill fill-green" style="width: 78%;"></div></div>
-          <div class="progress-value" style="color: var(--cf-green);">78%</div>
-        </div>
-        <div class="progress-row">
-          <div class="progress-label">PCU (target 75%)</div>
-          <div class="progress-bar"><div class="progress-fill fill-green" style="width: 80%;"></div></div>
-          <div class="progress-value" style="color: var(--cf-green);">80%</div>
-        </div>
-        <div class="progress-row">
-          <div class="progress-label">Internal Time</div>
-          <div class="progress-bar"><div class="progress-fill fill-green" style="width: 30%;"></div></div>
-          <div class="progress-value" style="color: var(--cf-green);">3 hrs</div>
-        </div>
-        <div class="progress-row">
-          <div class="progress-label">Load</div>
-          <div class="progress-bar"><div class="progress-fill fill-green" style="width: 100%;"></div></div>
-          <div class="progress-value" style="color: var(--cf-green);">100%</div>
-        </div>
-      </div>
-    </div>
+    <div class="metrics-title">📈 SE Org Impact — Before vs. After</div>
+    <table class="impact-table">
+      <thead>
+        <tr>
+          <th>Metric</th>
+          <th class="col-before">⏱️ Without Tool</th>
+          <th class="col-after">✅ With Tool</th>
+          <th class="col-delta">Delta</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Post-call documentation time</td>
+          <td class="col-before">45 min / call</td>
+          <td class="col-after">8 min / call</td>
+          <td class="col-delta">−37 min</td>
+        </tr>
+        <tr>
+          <td>Internal admin time / week</td>
+          <td class="col-before">16 hrs</td>
+          <td class="col-after">3 hrs</td>
+          <td class="col-delta">−13 hrs</td>
+        </tr>
+        <tr>
+          <td>BUR (Billing Utilization Rate)</td>
+          <td class="col-before">54%</td>
+          <td class="col-after">78%</td>
+          <td class="col-delta">+24 pts</td>
+        </tr>
+        <tr>
+          <td>PCU (Pipeline Coverage Utilization)</td>
+          <td class="col-before">60%</td>
+          <td class="col-after">80%</td>
+          <td class="col-delta">+20 pts</td>
+        </tr>
+        <tr>
+          <td>SE Load</td>
+          <td class="col-before">120%</td>
+          <td class="col-after">100%</td>
+          <td class="col-delta">Normalized</td>
+        </tr>
+        <tr>
+          <td>Hours recovered / year (20 SEs)</td>
+          <td class="col-before">—</td>
+          <td class="col-after">~3,500 hrs</td>
+          <td class="col-delta">≈ +1.7 SE headcount</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
 </div>
@@ -1054,11 +1018,7 @@ Cloudflare Solutions Engineering</div>
 </div>
 
 <!-- FOOTER -->
-<footer>
-  <span style="color: rgba(255,255,255,0.2);">
-    Concept: Compress SE internal work time → extend customer-facing capacity without adding headcount
-  </span>
-</footer>
+<footer></footer>
 
 <script>
   function switchTab(tabName) {
