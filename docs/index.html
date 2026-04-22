@@ -128,10 +128,18 @@
     /* ─── SCOUT LOGO ─────────────────────────────────── */
     .scout-logo {
       display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .scout-logo-lockup {
+      display: flex;
       align-items: center;
       justify-content: center;
       gap: 18px;
-      margin-bottom: 18px;
     }
 
     .scout-logo-icon {
@@ -143,7 +151,7 @@
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      gap: 3px;
+      gap: 0;
     }
 
     .scout-wordmark {
@@ -877,31 +885,33 @@
 <div class="hero">
   <!-- SCOUT LOGO -->
   <div class="scout-logo">
-    <svg class="scout-logo-icon" width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- Outer ring -->
-      <circle cx="36" cy="36" r="34" stroke="#F48120" stroke-width="1.5" fill="#0d0d0d"/>
-      <!-- Concentric scan rings -->
-      <circle cx="36" cy="36" r="10" stroke="rgba(255,255,255,0.18)" stroke-width="1" fill="none"/>
-      <circle cx="36" cy="36" r="19" stroke="rgba(255,255,255,0.12)" stroke-width="1" fill="none"/>
-      <circle cx="36" cy="36" r="28" stroke="rgba(255,255,255,0.07)" stroke-width="1" fill="none"/>
-      <!-- Crosshair guides -->
-      <line x1="36" y1="4"  x2="36" y2="68" stroke="rgba(255,255,255,0.08)" stroke-width="0.75"/>
-      <line x1="4"  y1="36" x2="68" y2="36" stroke="rgba(255,255,255,0.08)" stroke-width="0.75"/>
-      <!-- Sweep wedge (orange fill) -->
-      <path d="M36 36 L60 14 A28 28 0 0 1 64 36 Z" fill="rgba(244,129,32,0.18)"/>
-      <!-- Sweep leading edge -->
-      <line x1="36" y1="36" x2="60" y2="14" stroke="#F48120" stroke-width="1.75" stroke-linecap="round"/>
-      <!-- Center dot -->
-      <circle cx="36" cy="36" r="3" fill="#F48120"/>
-      <circle cx="36" cy="36" r="1.2" fill="#fff"/>
-      <!-- Blip on sweep -->
-      <circle cx="55" cy="18" r="2.5" fill="#F48120" opacity="0.9"/>
-      <circle cx="55" cy="18" r="4.5" fill="none" stroke="#F48120" stroke-width="0.75" opacity="0.4"/>
-    </svg>
-    <div class="scout-logo-text">
-      <span class="scout-wordmark">Scout</span>
-      <span class="scout-tagline-text"><em>Scouting deal intelligence from every conversation</em></span>
+    <div class="scout-logo-lockup">
+      <svg class="scout-logo-icon" width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Outer ring -->
+        <circle cx="36" cy="36" r="34" stroke="#F48120" stroke-width="1.5" fill="#0d0d0d"/>
+        <!-- Concentric scan rings -->
+        <circle cx="36" cy="36" r="10" stroke="rgba(255,255,255,0.18)" stroke-width="1" fill="none"/>
+        <circle cx="36" cy="36" r="19" stroke="rgba(255,255,255,0.12)" stroke-width="1" fill="none"/>
+        <circle cx="36" cy="36" r="28" stroke="rgba(255,255,255,0.07)" stroke-width="1" fill="none"/>
+        <!-- Crosshair guides -->
+        <line x1="36" y1="4"  x2="36" y2="68" stroke="rgba(255,255,255,0.08)" stroke-width="0.75"/>
+        <line x1="4"  y1="36" x2="68" y2="36" stroke="rgba(255,255,255,0.08)" stroke-width="0.75"/>
+        <!-- Sweep wedge (orange fill) -->
+        <path d="M36 36 L60 14 A28 28 0 0 1 64 36 Z" fill="rgba(244,129,32,0.18)"/>
+        <!-- Sweep leading edge -->
+        <line x1="36" y1="36" x2="60" y2="14" stroke="#F48120" stroke-width="1.75" stroke-linecap="round"/>
+        <!-- Center dot -->
+        <circle cx="36" cy="36" r="3" fill="#F48120"/>
+        <circle cx="36" cy="36" r="1.2" fill="#fff"/>
+        <!-- Blip on sweep -->
+        <circle cx="55" cy="18" r="2.5" fill="#F48120" opacity="0.9"/>
+        <circle cx="55" cy="18" r="4.5" fill="none" stroke="#F48120" stroke-width="0.75" opacity="0.4"/>
+      </svg>
+      <div class="scout-logo-text">
+        <span class="scout-wordmark">Scout</span>
+      </div>
     </div>
+    <span class="scout-tagline-text"><em>Scouting deal intelligence from every conversation</em></span>
   </div>
   <p>Enterprise SEs lose on avg 16 hours/week to documentation. Turn any transcript into a full CRM package in 60 seconds with Scout.</p>
 
