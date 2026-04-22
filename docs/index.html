@@ -679,22 +679,10 @@
     .col-delta  { color: var(--cf-orange) !important; font-weight: 700; }
 
     /* ─── PERSONA BENEFITS ──────────────────────────── */
-    /* ─── TWO-COL WRAPPER ──────────────────────────── */
-    .two-col-wrapper {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: stretch;
-      border-top: 1px solid var(--cf-border);
-    }
-
     .personas-section {
       background: var(--cf-dark);
-      border-top: none;
-      border-left: 1px solid var(--cf-border);
-      order: 2;
-      padding: 32px 24px;
-      display: flex;
-      flex-direction: column;
+      border-top: 1px solid var(--cf-border);
+      padding: 36px 32px 28px;
     }
 
     .personas-header {
@@ -744,7 +732,7 @@
     .personas-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
+      gap: 16px;
       max-width: 1200px;
       margin: 0 auto;
     }
@@ -1166,35 +1154,9 @@
     /* ─── ROI CALCULATOR ─────────────────────────────── */
     .roi-section {
       background: linear-gradient(135deg, var(--cf-blue-dark) 0%, var(--cf-dark) 100%);
-      border-top: none;
-      padding: 32px 28px;
-      order: 1;
+      border-top: 1px solid var(--cf-border);
+      padding: 36px 32px 40px;
     }
-
-    /* compact personas inside two-col layout */
-    .two-col-wrapper .personas-header { margin-bottom: 16px; text-align: left; }
-    .two-col-wrapper .personas-eyebrow { justify-content: flex-start; }
-    .two-col-wrapper .personas-eyebrow::before { display: none; }
-    .two-col-wrapper .personas-grid {
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      max-width: 100%;
-      flex: 1;
-    }
-    .two-col-wrapper .persona-card {
-      padding: 14px;
-      display: flex;
-      flex-direction: column;
-    }
-    .two-col-wrapper .persona-name { display: none; }
-    .two-col-wrapper .persona-headline {
-      font-size: 12px;
-      line-height: 1.5;
-      margin-bottom: 10px;
-    }
-    .two-col-wrapper .persona-benefits { flex: 1; }
-    .two-col-wrapper .persona-benefits li { font-size: 12px; padding: 3px 0; }
-    .two-col-wrapper .persona-stat { font-size: 11px; margin-top: 12px; }
     .roi-header { text-align: center; margin-bottom: 36px; }
     .roi-header h2 {
       font-size: 22px; font-weight: 800;
@@ -1734,65 +1696,6 @@ Cloudflare Solutions Engineering</div>
 
 </div>
 
-<!-- PERSONA BENEFITS -->
-<div class="two-col-wrapper">
-<div class="personas-section">
-  <div class="personas-header">
-    <div class="personas-eyebrow">Built for SE Orgs</div>
-    <h2>Who <em>Benefits</em> — and How</h2>
-    <p>Scout delivers different value depending on where you sit in the org.</p>
-  </div>
-
-  <div class="personas-grid">
-
-    <!-- SALES LEADERSHIP -->
-    <div class="persona-card sales">
-      <div class="persona-role">Sales Leadership</div>
-      <div class="persona-title">Revenue & Pipeline Impact</div>
-      <div class="persona-name">Area VP Sales perspective</div>
-      <div class="persona-headline">
-        "Every hour an SE saves on admin is an hour with a customer — expanding pipeline without adding headcount."
-      </div>
-      <ul class="persona-benefits">
-        <li><span class="benefit-icon">📈</span>More SE capacity per AE — faster deal velocity, shorter cycles</li>
-        <li><span class="benefit-icon">⚠️</span>Competitive signals flagged instantly — Zscaler, Palo Alto, CrowdStrike surfaced the moment the call ends</li>
-      </ul>
-      <div class="persona-stat">~7,000 hours recovered annually across a 45-person SE org</div>
-    </div>
-
-    <!-- SE LEADERSHIP -->
-    <div class="persona-card se-leader">
-      <div class="persona-role">SE Leadership</div>
-      <div class="persona-title">Team Capacity & Metrics</div>
-      <div class="persona-name">VP / Director SE perspective</div>
-      <div class="persona-headline">
-        "Admin time drops from 16 hrs to 3 hrs per week — that delta goes straight into customer-facing work."
-      </div>
-      <ul class="persona-benefits">
-        <li><span class="benefit-icon">📊</span>BUR lifts 54% → 78% without changing AE:SE ratio</li>
-        <li><span class="benefit-icon">🔁</span>Junior SEs produce the same structured notes as veterans</li>
-      </ul>
-      <div class="persona-stat">Equivalent of +3.4 SE headcount — no hire required</div>
-    </div>
-
-    <!-- SE TEAM -->
-    <div class="persona-card se-team">
-      <div class="persona-role">SE Team</div>
-      <div class="persona-title">Day-to-Day Workflow</div>
-      <div class="persona-name">Individual SE perspective</div>
-      <div class="persona-headline">
-        "I paste the transcript, review the output, and I'm done in 8 minutes. Used to take 45."
-      </div>
-      <ul class="persona-benefits">
-        <li><span class="benefit-icon">⚡</span>CRM note, follow-up email, and action items in under 30 seconds</li>
-        <li><span class="benefit-icon">📋</span>Salesforce-ready note — copy, paste, done. No blank text box.</li>
-      </ul>
-      <div class="persona-stat">37 min saved per call · 5 calls/week = 3 hrs back every week</div>
-    </div>
-
-  </div>
-</div>
-
 <script>
   function runScout() {
     const arrow = document.getElementById('scoutArrow');
@@ -2050,7 +1953,64 @@ POC / Technical validation               SE        Week 4–5 (May 5–12)
   </div>
   <p class="roi-footnote">Scout reduces post-call admin from <span id="fn-admin">45</span> min → 8 min per call · 40% of recovered time redirected to customer-facing work · <span id="fn-deals">91</span> additional deal opportunities at <span id="fn-win">30%</span> win rate · 35 avg SE hours per deal</p>
 </div>
-</div><!-- /two-col-wrapper -->
+
+<!-- PERSONA BENEFITS -->
+<div class="personas-section">
+  <div class="personas-header">
+    <div class="personas-eyebrow">Built for SE Orgs</div>
+    <h2>Who <em>Benefits</em> — and How</h2>
+    <p>Scout delivers different value depending on where you sit in the org.</p>
+  </div>
+
+  <div class="personas-grid">
+
+    <!-- SALES LEADERSHIP -->
+    <div class="persona-card sales">
+      <div class="persona-role">Sales Leadership</div>
+      <div class="persona-title">Revenue & Pipeline Impact</div>
+      <div class="persona-name">Area VP Sales perspective</div>
+      <div class="persona-headline">
+        "Every hour an SE saves on admin is an hour with a customer — expanding pipeline without adding headcount."
+      </div>
+      <ul class="persona-benefits">
+        <li><span class="benefit-icon">📈</span>More SE capacity per AE — faster deal velocity, shorter cycles</li>
+        <li><span class="benefit-icon">⚠️</span>Competitive signals flagged instantly — Zscaler, Palo Alto, CrowdStrike surfaced the moment the call ends</li>
+      </ul>
+      <div class="persona-stat">~7,000 hours recovered annually across a 45-person SE org</div>
+    </div>
+
+    <!-- SE LEADERSHIP -->
+    <div class="persona-card se-leader">
+      <div class="persona-role">SE Leadership</div>
+      <div class="persona-title">Team Capacity & Metrics</div>
+      <div class="persona-name">VP / Director SE perspective</div>
+      <div class="persona-headline">
+        "Admin time drops from 16 hrs to 3 hrs per week — that delta goes straight into customer-facing work."
+      </div>
+      <ul class="persona-benefits">
+        <li><span class="benefit-icon">📊</span>BUR lifts 54% → 78% without changing AE:SE ratio</li>
+        <li><span class="benefit-icon">🔁</span>Junior SEs produce the same structured notes as veterans</li>
+      </ul>
+      <div class="persona-stat">Equivalent of +3.4 SE headcount — no hire required</div>
+    </div>
+
+    <!-- SE TEAM -->
+    <div class="persona-card se-team">
+      <div class="persona-role">SE Team</div>
+      <div class="persona-title">Day-to-Day Workflow</div>
+      <div class="persona-name">Individual SE perspective</div>
+      <div class="persona-headline">
+        "I paste the transcript, review the output, and I'm done in 8 minutes. Used to take 45."
+      </div>
+      <ul class="persona-benefits">
+        <li><span class="benefit-icon">⚡</span>CRM note, follow-up email, and action items in under 30 seconds</li>
+        <li><span class="benefit-icon">📋</span>Salesforce-ready note — copy, paste, done. No blank text box.</li>
+      </ul>
+      <div class="persona-stat">37 min saved per call · 5 calls/week = 3 hrs back every week</div>
+    </div>
+
+  </div>
+</div>
 
 <!-- V2 ROADMAP -->
 <div style="background: var(--cf-darker); border-top: 1px solid var(--cf-border);">
