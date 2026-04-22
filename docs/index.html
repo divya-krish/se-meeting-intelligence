@@ -107,23 +107,17 @@
 
     /* ─── SCOUT LOGO ─────────────────────────────────── */
     .scout-logo {
-      display: flex;
-      align-items: center;
-      gap: 18px;
+      display: block;
       width: fit-content;
       margin: 0 auto 18px;
-    }
-
-    .scout-logo-icon {
-      flex-shrink: 0;
-      filter: drop-shadow(0 0 12px rgba(243,128,32,0.45));
+      text-align: center;
     }
 
     .scout-logo-text {
-      display: flex;
+      display: inline-flex;
       flex-direction: column;
-      align-items: flex-start;
-      gap: 4px;
+      align-items: center;
+      gap: 7px;
     }
 
     .scout-wordmark {
@@ -133,6 +127,19 @@
       color: #FFFFFF;
       letter-spacing: -3px;
       line-height: 1;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .scout-o {
+      display: inline-block;
+      width: 48px;
+      height: 54px;
+      flex-shrink: 0;
+      filter: drop-shadow(0 0 10px rgba(243,128,32,0.55));
+      margin: 0 1px;
+      position: relative;
+      top: 1px;
     }
 
     .scout-tagline-text {
@@ -1001,22 +1008,28 @@
 <div class="hero">
   <!-- SCOUT LOGO -->
   <div class="scout-logo">
-    <svg class="scout-logo-icon" width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="36" cy="36" r="34" stroke="#f38020" stroke-width="1.5" fill="#141516"/>
-      <circle cx="36" cy="36" r="10" stroke="rgba(255,255,255,0.18)" stroke-width="1" fill="none"/>
-      <circle cx="36" cy="36" r="19" stroke="rgba(255,255,255,0.12)" stroke-width="1" fill="none"/>
-      <circle cx="36" cy="36" r="28" stroke="rgba(255,255,255,0.07)" stroke-width="1" fill="none"/>
-      <line x1="36" y1="4"  x2="36" y2="68" stroke="rgba(255,255,255,0.08)" stroke-width="0.75"/>
-      <line x1="4"  y1="36" x2="68" y2="36" stroke="rgba(255,255,255,0.08)" stroke-width="0.75"/>
-      <path d="M36 36 L60 14 A28 28 0 0 1 64 36 Z" fill="rgba(243,128,32,0.18)"/>
-      <line x1="36" y1="36" x2="60" y2="14" stroke="#f38020" stroke-width="1.75" stroke-linecap="round"/>
-      <circle cx="36" cy="36" r="3" fill="#f38020"/>
-      <circle cx="36" cy="36" r="1.2" fill="#fff"/>
-      <circle cx="55" cy="18" r="2.5" fill="#f38020" opacity="0.9"/>
-      <circle cx="55" cy="18" r="4.5" fill="none" stroke="#f38020" stroke-width="0.75" opacity="0.4"/>
-    </svg>
     <div class="scout-logo-text">
-      <span class="scout-wordmark">Scout</span>
+      <span class="scout-wordmark">Sc<svg class="scout-o" viewBox="0 0 48 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Outer ring — acts as the letter O, white bold stroke to match font weight -->
+        <ellipse cx="24" cy="27" rx="21.5" ry="24.5" stroke="#FFFFFF" stroke-width="2.8" fill="#141516"/>
+        <!-- Concentric scan rings -->
+        <ellipse cx="24" cy="27" rx="7"  ry="8"  stroke="rgba(255,255,255,0.22)" stroke-width="1" fill="none"/>
+        <ellipse cx="24" cy="27" rx="13" ry="15" stroke="rgba(255,255,255,0.13)" stroke-width="1" fill="none"/>
+        <ellipse cx="24" cy="27" rx="18" ry="21" stroke="rgba(255,255,255,0.07)" stroke-width="1" fill="none"/>
+        <!-- Crosshairs -->
+        <line x1="24" y1="3"  x2="24" y2="51" stroke="rgba(255,255,255,0.09)" stroke-width="0.75"/>
+        <line x1="3"  y1="27" x2="45" y2="27" stroke="rgba(255,255,255,0.09)" stroke-width="0.75"/>
+        <!-- Orange sweep wedge (upper-right) -->
+        <path d="M24 27 L40 11 A18 21 0 0 1 42 27 Z" fill="rgba(243,128,32,0.22)"/>
+        <!-- Sweep leading edge -->
+        <line x1="24" y1="27" x2="40" y2="11" stroke="#f38020" stroke-width="1.6" stroke-linecap="round"/>
+        <!-- Center dot -->
+        <circle cx="24" cy="27" r="2.5" fill="#f38020"/>
+        <circle cx="24" cy="27" r="1"   fill="#fff"/>
+        <!-- Blip -->
+        <circle cx="38" cy="13" r="2"   fill="#f38020" opacity="0.9"/>
+        <circle cx="38" cy="13" r="3.8" fill="none" stroke="#f38020" stroke-width="0.75" opacity="0.4"/>
+      </svg>ut</span>
       <span class="scout-tagline-text"><em>Scouting deal intelligence from every conversation</em></span>
     </div>
   </div>
