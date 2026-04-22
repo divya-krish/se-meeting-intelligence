@@ -126,26 +126,27 @@
     }
 
     .hero h1 .scout-word {
-      font-size: 42px;
+      display: block;
+      font-size: 52px;
       font-weight: 700;
       font-family: 'Space Grotesk', sans-serif;
       color: #FFFFFF;
-      letter-spacing: -1px;
+      letter-spacing: -2px;
+      line-height: 1;
+      margin-bottom: 6px;
     }
 
-    .hero h1 .scout-dash {
-      font-size: 28px;
-      color: rgba(255,255,255,0.4);
-      font-weight: 300;
-      margin: 0 8px;
-    }
+    .hero h1 .scout-dash { display: none; }
 
     .hero h1 .scout-tagline {
-      font-size: 18px;
+      display: block;
+      font-size: 16px;
       font-weight: 400;
       color: var(--cf-orange);
       font-family: 'Inter', sans-serif;
-      letter-spacing: 0;
+      letter-spacing: 0.2px;
+      line-height: 1.4;
+      margin-bottom: 4px;
     }
 
     .hero p {
@@ -856,7 +857,6 @@
 <div class="hero">
   <h1><span class="scout-word">Scout</span><span class="scout-dash">—</span><span class="scout-tagline">scouting deal intelligence from every conversation</span></h1>
   <p>Enterprise SEs lose 15–20 hours a week to documentation. Scout turns any transcript into a full CRM package in 60 seconds.</p>
-  <p style="color: var(--cf-orange); font-size:13px; font-weight:600; margin-top:-8px; margin-bottom:18px;">7,000 hours recovered per year · the equivalent of 3.4 additional SEs — without an additional headcount.</p>
 
   <!-- ROW 1: Before → After transformations -->
   <div class="hero-metrics">
@@ -897,6 +897,7 @@
       <div class="hero-metric-sub">per call, automatically</div>
     </div>
   </div>
+  <p style="color: var(--cf-orange); font-size:13px; font-weight:600; margin-top:14px; margin-bottom:0;">7,000 hours recovered per year · the equivalent of 3.4 additional SEs — without additional headcount.</p>
 </div>
 
 <!-- MAIN PANELS -->
@@ -1036,7 +1037,7 @@ SE: I'll have our team put together a TCO comparison — apples to apples on wha
             <span class="gl-ae">■ AE</span>
             <span class="gl-cust">■ Customer</span>
           </div>
-          <button class="copy-btn" style="font-size:11px; padding:5px 12px;" onclick="copyGantt(this)">📋 Copy as Text</button>
+          <button class="copy-btn" style="font-size:11px; padding:5px 12px;" onclick="copyGantt(this)">📋 Copy to Clipboard</button>
         </div>
         <table class="gantt-table">
           <thead>
@@ -1252,7 +1253,7 @@ Cloudflare Solutions Engineering</div>
       <div class="persona-title">Day-to-Day Workflow</div>
       <div class="persona-name">Individual SE perspective</div>
       <div class="persona-headline">
-        "I used to spend 45 minutes after every call writing notes. Now I paste the transcript, review the output, and I'm done in 8 minutes."
+        "I used to spend 45 minutes after every call reviewing notes, making a list of next steps, writing notes to paste in CRM, and drafting an email to send to the customer. Now I paste the transcript, review the output, and I'm done in 8 minutes."
       </div>
       <ul class="persona-benefits">
         <li><span class="benefit-icon">⚡</span>Paste transcript → get CRM note, follow-up email, and action items in under 30 seconds</li>
@@ -1297,7 +1298,7 @@ POC / Technical validation               SE        Week 4–5 (May 5–12)
       btn.textContent = '✅ Copied!';
       btn.style.background = 'var(--cf-green)';
       setTimeout(() => {
-        btn.textContent = '📋 Copy as Text';
+        btn.textContent = '📋 Copy to Clipboard';
         btn.style.background = '';
       }, 2000);
     });
