@@ -65,6 +65,20 @@
       font-size: 18px;
     }
 
+    .logo-attribution {
+      font-size: 10px;
+      color: rgba(255,255,255,0.3);
+      font-weight: 400;
+      margin-bottom: 1px;
+    }
+
+    .logo-attribution a {
+      color: rgba(246,130,31,0.6);
+      text-decoration: none;
+    }
+
+    .logo-attribution a:hover { color: var(--cf-orange); }
+
     .logo-sub {
       font-size: 12px;
       color: var(--cf-muted);
@@ -84,15 +98,15 @@
     /* ─── HERO ─────────────────────────────────────── */
     .hero {
       background: linear-gradient(135deg, var(--cf-dark) 0%, #0D1B3E 100%);
-      padding: 48px 32px 40px;
+      padding: 24px 32px 20px;
       border-bottom: 1px solid var(--cf-border);
       text-align: center;
     }
 
     .hero h1 {
-      font-size: 36px;
+      font-size: 28px;
       font-weight: 800;
-      margin-bottom: 12px;
+      margin-bottom: 6px;
       background: linear-gradient(135deg, #FFFFFF 0%, var(--cf-orange) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -101,9 +115,9 @@
 
     .hero p {
       color: var(--cf-muted);
-      font-size: 16px;
+      font-size: 14px;
       max-width: 600px;
-      margin: 0 auto 28px;
+      margin: 0 auto 16px;
     }
 
     /* ─── IMPACT METRICS BAR ────────────────────────── */
@@ -121,16 +135,16 @@
 
     .impact-card {
       background: var(--cf-card);
-      padding: 20px 24px;
+      padding: 12px 20px;
       text-align: center;
     }
 
     .impact-number {
-      font-size: 32px;
+      font-size: 24px;
       font-weight: 800;
       color: var(--cf-orange);
       line-height: 1;
-      margin-bottom: 4px;
+      margin-bottom: 2px;
     }
 
     .impact-label {
@@ -599,6 +613,7 @@
   <div class="logo">
     <div class="logo-icon">⚡</div>
     <div>
+      <div class="logo-attribution">Built by Divya Krishnamurthi · Powered by <a href="https://www.anthropic.com/claude" target="_blank">Claude AI</a> · <a href="https://github.com/divya-krish/se-meeting-intelligence" target="_blank">View on GitHub</a></div>
       <div>SE Meeting Intelligence</div>
       <div class="logo-sub">Powered by Claude AI · Built for Cloudflare SEs</div>
     </div>
@@ -635,69 +650,6 @@
       <div class="impact-label">Manual CRM Entries</div>
       <div class="impact-sub">Fully automated</div>
     </div>
-  </div>
-</div>
-
-<!-- PERSONA BENEFITS -->
-<div class="personas-section">
-  <div class="personas-header">
-    <h2>Who Benefits — and How</h2>
-    <p>The same tool delivers different value depending on where you sit in the org.</p>
-  </div>
-
-  <div class="personas-grid">
-
-    <!-- SALES LEADERSHIP -->
-    <div class="persona-card sales">
-      <div class="persona-role">Sales Leadership</div>
-      <div class="persona-title">Revenue & Pipeline Impact</div>
-      <div class="persona-name">Area VP Sales perspective</div>
-      <div class="persona-headline">
-        "Every hour an SE saves on admin is an hour they can spend with a customer — directly expanding pipeline capacity without adding headcount."
-      </div>
-      <ul class="persona-benefits">
-        <li><span class="benefit-icon">📈</span>More SE capacity per AE means faster deal velocity and shorter sales cycles</li>
-        <li><span class="benefit-icon">✅</span>100% CRM hygiene — every call logged, every action item captured, no deals lost to admin gaps</li>
-        <li><span class="benefit-icon">⚠️</span>Competitive signals flagged automatically — sales leadership sees Zscaler, Palo Alto, CrowdStrike mentions the moment the call ends</li>
-        <li><span class="benefit-icon">🎯</span>Follow-up emails drafted instantly — customers get a response the same day, not 48 hours later</li>
-      </ul>
-      <div class="persona-stat">~3,500 hours recovered annually across a 20-person SE org</div>
-    </div>
-
-    <!-- SE LEADERSHIP -->
-    <div class="persona-card se-leader">
-      <div class="persona-role">SE Leadership</div>
-      <div class="persona-title">Team Capacity & Metrics</div>
-      <div class="persona-name">VP / Director SE perspective</div>
-      <div class="persona-headline">
-        "This directly improves BUR. Admin time compresses from 16 hours to 3 hours per week — that delta goes straight into customer-facing work."
-      </div>
-      <ul class="persona-benefits">
-        <li><span class="benefit-icon">📊</span>BUR lifts from 54% → 78% without changing AE:SE ratio or headcount</li>
-        <li><span class="benefit-icon">⏱️</span>Internal time drops from 16 hrs → 3 hrs per week per SE</li>
-        <li><span class="benefit-icon">🔁</span>Consistent output quality across the team — junior SEs produce the same structured notes as veterans</li>
-        <li><span class="benefit-icon">🧩</span>Multi-product signals captured automatically — no more missed upsell opportunities buried in call notes</li>
-      </ul>
-      <div class="persona-stat">Equivalent of +1.7 SE headcount — no hire required</div>
-    </div>
-
-    <!-- SE TEAM -->
-    <div class="persona-card se-team">
-      <div class="persona-role">SE Team</div>
-      <div class="persona-title">Day-to-Day Workflow</div>
-      <div class="persona-name">Individual SE perspective</div>
-      <div class="persona-headline">
-        "I used to spend 45 minutes after every call writing notes. Now I paste the transcript, review the output, and I'm done in 8 minutes."
-      </div>
-      <ul class="persona-benefits">
-        <li><span class="benefit-icon">⚡</span>Paste transcript → get CRM note, follow-up email, and action items in under 30 seconds</li>
-        <li><span class="benefit-icon">📋</span>Salesforce-ready activity note — copy, paste, done. No blank text box staring back at you</li>
-        <li><span class="benefit-icon">📧</span>Follow-up email drafted with the right context — just review, personalize, and send</li>
-        <li><span class="benefit-icon">🧠</span>Nothing falls through the cracks — action items, owners, and due dates extracted from every call</li>
-      </ul>
-      <div class="persona-stat">43 minutes saved per call · 5 calls/week = 3.5 hrs back every week</div>
-    </div>
-
   </div>
 </div>
 
@@ -1038,12 +990,71 @@ Cloudflare Solutions Engineering</div>
 
 </div>
 
+<!-- PERSONA BENEFITS -->
+<div class="personas-section">
+  <div class="personas-header">
+    <h2>Who Benefits — and How</h2>
+    <p>The same tool delivers different value depending on where you sit in the org.</p>
+  </div>
+
+  <div class="personas-grid">
+
+    <!-- SALES LEADERSHIP -->
+    <div class="persona-card sales">
+      <div class="persona-role">Sales Leadership</div>
+      <div class="persona-title">Revenue & Pipeline Impact</div>
+      <div class="persona-name">Area VP Sales perspective</div>
+      <div class="persona-headline">
+        "Every hour an SE saves on admin is an hour they can spend with a customer — directly expanding pipeline capacity without adding headcount."
+      </div>
+      <ul class="persona-benefits">
+        <li><span class="benefit-icon">📈</span>More SE capacity per AE means faster deal velocity and shorter sales cycles</li>
+        <li><span class="benefit-icon">✅</span>100% CRM hygiene — every call logged, every action item captured, no deals lost to admin gaps</li>
+        <li><span class="benefit-icon">⚠️</span>Competitive signals flagged automatically — sales leadership sees Zscaler, Palo Alto, CrowdStrike mentions the moment the call ends</li>
+        <li><span class="benefit-icon">🎯</span>Follow-up emails drafted instantly — customers get a response the same day, not 48 hours later</li>
+      </ul>
+      <div class="persona-stat">~3,500 hours recovered annually across a 20-person SE org</div>
+    </div>
+
+    <!-- SE LEADERSHIP -->
+    <div class="persona-card se-leader">
+      <div class="persona-role">SE Leadership</div>
+      <div class="persona-title">Team Capacity & Metrics</div>
+      <div class="persona-name">VP / Director SE perspective</div>
+      <div class="persona-headline">
+        "This directly improves BUR. Admin time compresses from 16 hours to 3 hours per week — that delta goes straight into customer-facing work."
+      </div>
+      <ul class="persona-benefits">
+        <li><span class="benefit-icon">📊</span>BUR lifts from 54% → 78% without changing AE:SE ratio or headcount</li>
+        <li><span class="benefit-icon">⏱️</span>Internal time drops from 16 hrs → 3 hrs per week per SE</li>
+        <li><span class="benefit-icon">🔁</span>Consistent output quality across the team — junior SEs produce the same structured notes as veterans</li>
+        <li><span class="benefit-icon">🧩</span>Multi-product signals captured automatically — no more missed upsell opportunities buried in call notes</li>
+      </ul>
+      <div class="persona-stat">Equivalent of +1.7 SE headcount — no hire required</div>
+    </div>
+
+    <!-- SE TEAM -->
+    <div class="persona-card se-team">
+      <div class="persona-role">SE Team</div>
+      <div class="persona-title">Day-to-Day Workflow</div>
+      <div class="persona-name">Individual SE perspective</div>
+      <div class="persona-headline">
+        "I used to spend 45 minutes after every call writing notes. Now I paste the transcript, review the output, and I'm done in 8 minutes."
+      </div>
+      <ul class="persona-benefits">
+        <li><span class="benefit-icon">⚡</span>Paste transcript → get CRM note, follow-up email, and action items in under 30 seconds</li>
+        <li><span class="benefit-icon">📋</span>Salesforce-ready activity note — copy, paste, done. No blank text box staring back at you</li>
+        <li><span class="benefit-icon">📧</span>Follow-up email drafted with the right context — just review, personalize, and send</li>
+        <li><span class="benefit-icon">🧠</span>Nothing falls through the cracks — action items, owners, and due dates extracted from every call</li>
+      </ul>
+      <div class="persona-stat">43 minutes saved per call · 5 calls/week = 3.5 hrs back every week</div>
+    </div>
+
+  </div>
+</div>
+
 <!-- FOOTER -->
 <footer>
-  Built by Divya Krishnamurthi · Powered by
-  <a href="https://www.anthropic.com/claude" target="_blank">Claude AI</a> ·
-  <a href="https://github.com/divya-krish/se-meeting-intelligence" target="_blank">View on GitHub</a>
-  <br><br>
   <span style="color: rgba(255,255,255,0.2);">
     Concept: Compress SE internal work time → extend customer-facing capacity without adding headcount
   </span>
