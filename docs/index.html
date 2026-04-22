@@ -994,6 +994,146 @@
       font-weight: 700;
     }
 
+    /* ─── ROADMAP ───────────────────────────────────── */
+    .roadmap-section {
+      background: var(--cf-darker);
+      border-top: 1px solid var(--cf-border);
+      padding: 48px 32px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .roadmap-header {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+
+    .roadmap-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--cf-blue);
+      margin-bottom: 10px;
+    }
+
+    .roadmap-eyebrow::before,
+    .roadmap-eyebrow::after {
+      content: '';
+      display: inline-block;
+      width: 28px;
+      height: 1px;
+      background: var(--cf-blue);
+      opacity: 0.5;
+    }
+
+    .roadmap-header h2 {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--cf-text);
+      margin-bottom: 8px;
+    }
+
+    .roadmap-header h2 em {
+      font-style: normal;
+      color: var(--cf-blue);
+    }
+
+    .roadmap-header p {
+      font-size: 14px;
+      color: var(--cf-muted);
+    }
+
+    .roadmap-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .roadmap-card {
+      background: var(--cf-card);
+      border: 1px solid var(--cf-border);
+      border-radius: 12px;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .roadmap-card:hover {
+      border-color: rgba(71,154,209,0.4);
+      transform: translateY(-2px);
+    }
+
+    .roadmap-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+
+    .roadmap-card.v2-1::before { background: linear-gradient(to right, #479ad1, #6373b6); }
+    .roadmap-card.v2-2::before { background: linear-gradient(to right, #6373b6, #9b7fd4); }
+    .roadmap-card.v2-3::before { background: linear-gradient(to right, #46a46c, #479ad1); }
+
+    .roadmap-tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 2px 8px;
+      border-radius: 10px;
+      margin-bottom: 14px;
+    }
+
+    .tag-v2   { background: rgba(71,154,209,0.12); color: var(--cf-blue);   border: 1px solid rgba(71,154,209,0.3); }
+    .tag-v3   { background: rgba(99,115,182,0.12); color: var(--cf-indigo); border: 1px solid rgba(99,115,182,0.3); }
+
+    .roadmap-icon {
+      font-size: 28px;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .roadmap-card-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--cf-text);
+      margin-bottom: 8px;
+    }
+
+    .roadmap-card-desc {
+      font-size: 13px;
+      color: var(--cf-muted);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .roadmap-card-detail {
+      font-size: 11px;
+      color: rgba(255,255,255,0.35);
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      line-height: 1.7;
+      border-top: 1px solid var(--cf-border);
+      padding-top: 12px;
+    }
+
+    .roadmap-card-detail span {
+      display: block;
+    }
+
+    .roadmap-card-detail span::before {
+      content: '→ ';
+      color: var(--cf-blue);
+      opacity: 0.7;
+    }
+
     /* ─── FOOTER ─────────────────────────────────────── */
     footer {
       text-align: center;
@@ -1876,6 +2016,60 @@ POC / Technical validation               SE        Week 4–5 (May 5–12)
 
   </div>
   <p class="roi-footnote">Scout reduces post-call admin from <span id="fn-admin">45</span> min → 8 min per call · 40% of recovered time redirected to customer-facing work · <span id="fn-deals">91</span> additional deal opportunities at <span id="fn-win">30%</span> win rate · 35 avg SE hours per deal</p>
+</div>
+
+<!-- V2 ROADMAP -->
+<div style="background: var(--cf-darker); border-top: 1px solid var(--cf-border);">
+<div class="roadmap-section">
+  <div class="roadmap-header">
+    <div class="roadmap-eyebrow">What's Next</div>
+    <h2>Scout <em>v2</em> Roadmap</h2>
+    <p>From individual productivity tool to org-wide intelligence layer.</p>
+  </div>
+
+  <div class="roadmap-grid">
+
+    <!-- CARD 1: Salesforce -->
+    <div class="roadmap-card v2-1">
+      <span class="roadmap-tag tag-v2">v2 · In Design</span>
+      <span class="roadmap-icon">☁️</span>
+      <div class="roadmap-card-title">Salesforce Write-Back</div>
+      <div class="roadmap-card-desc">Auto-create Activity records in Salesforce the moment Scout finishes processing. Zero copy-paste. CRM hygiene goes from inconsistent to guaranteed.</div>
+      <div class="roadmap-card-detail">
+        <span>POST /sobjects/Task via REST API</span>
+        <span>Maps to: Subject, Description, WhoId</span>
+        <span>Trigger: Scout JSON output → webhook</span>
+      </div>
+    </div>
+
+    <!-- CARD 2: Slack -->
+    <div class="roadmap-card v2-2">
+      <span class="roadmap-tag tag-v2">v2 · In Design</span>
+      <span class="roadmap-icon">🔔</span>
+      <div class="roadmap-card-title">Slack Deal Alerts</div>
+      <div class="roadmap-card-desc">Post structured deal summaries to <code style="background:rgba(255,255,255,0.08); padding:1px 5px; border-radius:3px; font-size:11px;">#se-deals</code> the moment a call ends. Competitive signals, budget, and next steps — in the channel before the customer's follow-up email lands.</div>
+      <div class="roadmap-card-detail">
+        <span>Slack Incoming Webhook integration</span>
+        <span>Competitive flags trigger @channel ping</span>
+        <span>AE tagged on their deal automatically</span>
+      </div>
+    </div>
+
+    <!-- CARD 3: Analytics -->
+    <div class="roadmap-card v2-3">
+      <span class="roadmap-tag tag-v3">v3 · Planned</span>
+      <span class="roadmap-icon">📊</span>
+      <div class="roadmap-card-title">SE Analytics Dashboard</div>
+      <div class="roadmap-card-desc">Aggregate call intelligence across the entire SE team. Surface which competitors come up most, where deals stall, and which SEs need coaching — without reading every call note.</div>
+      <div class="roadmap-card-detail">
+        <span>Competitor frequency by territory</span>
+        <span>Deal signal trends over time</span>
+        <span>BUR impact tracked per SE</span>
+      </div>
+    </div>
+
+  </div>
+</div>
 </div>
 
 <!-- TOAST -->
