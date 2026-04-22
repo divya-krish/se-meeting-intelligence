@@ -321,6 +321,7 @@
 
     .tab-content { display: none; padding: 16px 20px; overflow-y: auto; flex: 1; }
     .tab-content.active { display: block; }
+    #tab-crm.active, #tab-email.active { display: flex; flex-direction: column; }
 
     /* ─── SUMMARY TAB ──────────────────────────────── */
     .summary-text {
@@ -418,9 +419,9 @@
       line-height: 1.8;
       color: #B8C4D4;
       white-space: pre-wrap;
-      margin-bottom: 12px;
-      max-height: 180px;
+      flex: 1;
       overflow-y: auto;
+      min-height: 0;
     }
 
     .copy-btn {
